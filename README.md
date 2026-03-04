@@ -1,5 +1,5 @@
 About Me:
-📌 I'm currently working on<br>Web development projects, IoT projects and improving my programming skills with real life solutions.<br>🤝 I'm looking to collaborate on<br>Open source projects, web apps, and beginner friendly tech & IoT projects.<br>🫱 I'm looking for help with<br>Advanced web development concepts and real world project experience.<br>🌱 I'm currently learning<br>advance software engineering concepts.<br>💬 Ask me about<br>Web development, tech tools, productivity tips, and electrical engineering student life.<br>⚡ Fun fact<br>I enjoy building things on the internet and learning something new every day.
+I'm currently working on<br>Web development projects, IoT projects and improving my programming skills with real life solutions.<br>I'm looking to collaborate on<br>Open source projects, web apps, and beginner friendly tech & IoT projects.<br>I'm looking for help with<br>Advanced web development concepts and real world project experience.<br>I'm currently learning<br>advance software engineering concepts.<br>Ask me about<br>Web development, tech tools, productivity tips, and electrical engineering student life.<br>Fun fact<br>I enjoy building things on the internet and learning something new every day.
 
 
 ## 🌐 Socials:
