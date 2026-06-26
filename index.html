@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMarket | Real human insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                            dark: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-brain text-brand-600 text-3xl"></i>
+                    <span class="font-bold text-2xl tracking-tight text-slate-900">MindMarket</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Services</a>
+                    <a href="#methodology" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Methodology</a>
+                    <a href="#sectors" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Industry Sectors</a>
+                    <a href="#network" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Network</a>
+                    <a href="#about" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">About Us</a>
+                    <a href="#insights" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Insights</a>
+                    <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Contact</a>
+                </div>
+                <div class="hidden md:flex items-center">
+                    <a href="#quote" class="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-brand-600 hover:bg-brand-900 transition-colors shadow-sm hover:shadow-md">
+                        Get a quote
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-100 via-slate-50 to-slate-50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-8 leading-tight">
+                Real human insights. <br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-blue-800">One global partner.</span>
+            </h1>
+            <p class="mt-4 max-w-2xl text-lg md:text-xl text-slate-600 mx-auto mb-10 leading-relaxed">
+                MindMarket delivers global qualitative market research through real people who understand local cultures. We connect you with the voices that matter— wherever they are — to help you make smarter, faster business decisions with confidence.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#quote" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-medium rounded-full text-white bg-slate-900 hover:bg-brand-600 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    Get a quote
+                </a>
+            </div>
+
+            <div class="mt-16 flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-500">
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-brand-500"></i> Fast, high-quality insights</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-brand-500"></i> One seamless project lead</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-brand-500"></i> Built for multi-market studies</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / Benefits -->
+    <section id="services" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <!-- Feature 1 -->
+                <div class="group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i class="fa-solid fa-layer-group text-2xl text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">No more chaos.</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Managing multiple vendors, juggling time zones, translating insights across cultures — it adds up fast. At MindMarket, we bring it all under one roof. No misalignment, no friction, just seamless collaboration from start to finish.
+                    </p>
+                    <a href="#" class="text-brand-600 font-semibold hover:text-brand-900 flex items-center gap-2">Services <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i class="fa-solid fa-users text-2xl text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">One brief. One team.</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        You brief us once and we take it from there. From methodology design and recruitment to local moderation and reporting, everything is managed by a single point of contact who leads your study from start to finish. You get clear updates, fast turnarounds, and high-quality insights—without compromise.
+                    </p>
+                    <a href="#" class="text-brand-600 font-semibold hover:text-brand-900 flex items-center gap-2">Methodology <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i class="fa-solid fa-earth-americas text-2xl text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Speak their language.</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        From gaming to fintech, hospitality to consumer goods, each industry speaks its own language. Our in-market experts don’t just understand people, they understand the context. We bring cultural insight shaped by the sector you’re in, so your message hits home in every market.
+                    </p>
+                    <a href="#" class="text-brand-600 font-semibold hover:text-brand-900 flex items-center gap-2">Industry Sectors <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="group">
+                    <div class="w-14 h-14 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-600 transition-colors duration-300">
+                        <i class="fa-solid fa-globe text-2xl text-brand-600 group-hover:text-white transition-colors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Global, for real.</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Whether you’re researching one market or launching in ten, we scale with you. One partner. Global reach. Consistent quality. Our global network spans regions and industries, giving you on-demand access to the right participants in the right places, without starting from scratch.
+                    </p>
+                    <a href="#" class="text-brand-600 font-semibold hover:text-brand-900 flex items-center gap-2">Our Network <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-500 via-transparent to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">A few numbers behind the insights we deliver</h2>
+                <p class="text-lg text-slate-300">
+                    These numbers are more than just milestones. They represent the strength of our connections, the consistency of our work, and the real-world impact we help create for you.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-slate-800 pt-12">
+                <div>
+                    <div class="text-5xl md:text-7xl font-extrabold text-brand-500 mb-4">60+</div>
+                    <p class="text-slate-300 text-lg">Our network spans over 60 countries, giving you local insight with global consistency.</p>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-7xl font-extrabold text-brand-500 mb-4">400</div>
+                    <p class="text-slate-300 text-lg">We’ve successfully delivered more than 400 research projects around the world — and counting.</p>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-7xl font-extrabold text-brand-500 mb-4">40+</div>
+                    <p class="text-slate-300 text-lg">From global brands to growing startups, more than 40 clients have partnered with us.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-semibold text-slate-800 mb-12">Brands that choose MindMarket</h2>
+            <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-10 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                <span class="text-xl font-bold tracking-tight text-slate-800">Discord</span>
+                <span class="text-xl font-bold tracking-tight text-blue-800">PayPal</span>
+                <span class="text-xl font-bold tracking-tight text-blue-600">Walmart</span>
+                <span class="text-xl font-bold tracking-tight text-slate-900">Moët & Chandon</span>
+                <span class="text-xl font-bold tracking-tight text-blue-500">Coinbase</span>
+                <span class="text-xl font-bold tracking-tight text-red-500">Airbnb</span>
+                <span class="text-xl font-bold tracking-tight text-slate-900"><i class="fa-brands fa-apple"></i> Apple</span>
+                <span class="text-xl font-bold tracking-tight text-slate-800">Google</span>
+                <span class="text-xl font-bold tracking-tight text-red-600">YouTube</span>
+                <span class="text-xl font-bold tracking-tight text-slate-900">Uber</span>
+                <span class="text-xl font-bold tracking-tight text-blue-600">Meta</span>
+                <span class="text-xl font-bold tracking-tight text-green-700">Citizens Bank</span>
+                <span class="text-xl font-bold tracking-tight text-blue-400">American Express</span>
+                <span class="text-xl font-bold tracking-tight text-orange-500">Amazon</span>
+                <span class="text-xl font-bold tracking-tight text-green-500">WhatsApp</span>
+                <span class="text-xl font-bold tracking-tight text-blue-700">NielsenIQ</span>
+                <span class="text-xl font-bold tracking-tight text-blue-600">HP</span>
+                <span class="text-xl font-bold tracking-tight text-purple-600">AnswerLab</span>
+                <span class="text-xl font-bold tracking-tight text-green-800">Starbucks</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights / Featured Articles -->
+    <section id="insights" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Featured Articles</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
+                <!-- Article 1 -->
+                <article class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden bg-slate-100 aspect-[16/9] mb-6">
+                        <div class="w-full h-full bg-slate-200 group-hover:scale-105 transition-transform duration-500"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Worldwide</span>
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Methodology</span>
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Educational</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">How to Run Research in Live Venues: Four Methods That Capture What Surveys Miss</h3>
+                    <a href="#" class="text-brand-600 font-semibold flex items-center gap-2">Read more <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden bg-slate-100 aspect-[16/9] mb-6">
+                        <div class="w-full h-full bg-slate-200 group-hover:scale-105 transition-transform duration-500"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Worldwide</span>
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Industry Insights</span>
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Customer Insights</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">What Bartenders Know About Your Brand That You Don't</h3>
+                    <a href="#" class="text-brand-600 font-semibold flex items-center gap-2">Read more <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden bg-slate-100 aspect-[16/9] mb-6">
+                        <div class="w-full h-full bg-slate-200 group-hover:scale-105 transition-transform duration-500"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Europe</span>
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Case Studies</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">How a London Restaurant Group Uncovered the Brand Perception Gap That Shaped Its UK Expansion</h3>
+                    <a href="#" class="text-brand-600 font-semibold flex items-center gap-2">Read more <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden bg-slate-100 aspect-[16/9] mb-6">
+                        <div class="w-full h-full bg-slate-200 group-hover:scale-105 transition-transform duration-500"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">North America</span>
+                        <span class="px-3 py-1 bg-brand-50 text-brand-600 text-xs font-semibold rounded-full">Case Studies</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">How Apple Understood the Mac Purchase Journey Across Desktop, Mobile, and App</h3>
+                    <a href="#" class="text-brand-600 font-semibold flex items-center gap-2">Read more <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-Footer CTA -->
+    <section class="py-24 bg-brand-600 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAzNHYtNGgtMnY0aC00djJoNGg0djRoMnYtNGg0di0yaC00ek0xNCAxNHYtNGgtMnY0aC00djJoNGg0djRoMnYtNGg0di0yaC00eiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L2c+PC9zdmc+')]"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready when you are!</h2>
+            <p class="text-xl text-brand-100 mb-10 leading-relaxed">
+                Whether you’re launching in one market or ten, we’re here to make your research simple, smart, and human from day one. Let’s talk about your next project. Have a project in mind? We'd love to hear what you're working on and show you how we can help.
+            </p>
+            <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-full text-brand-900 bg-white hover:bg-slate-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Get a quote
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-brain text-brand-500 text-2xl"></i>
+                        <span class="font-bold text-xl tracking-tight text-white">MindMarket</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mb-6">Real human insights.<br>One global partner.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors">
+                            <i class="fa-brands fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 uppercase tracking-wider text-sm">Company</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Services</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Methodology</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Industry Sectors</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Network</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Insights</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 uppercase tracking-wider text-sm">Let's Connect</h4>
+                    <div class="space-y-6 text-sm">
+                        <div>
+                            <strong class="block text-white mb-1">Dubai</strong>
+                            <p class="text-slate-400">Dubai Silicon Oasis, DDP,<br>Building A2, 341041 Dubai, UAE<br>Mon-Fri 10:00 am - 7:00 pm (GST)</p>
+                        </div>
+                        <div>
+                            <strong class="block text-white mb-1">London</strong>
+                            <p class="text-slate-400">3rd Floor, 86-90 Paul Street,<br>London EC2A 4NE, UK<br>Mon-Fri 9:00 am - 6:00 pm (GMT)</p>
+                        </div>
+                        <a href="mailto:curious@mindmarket.com" class="text-brand-400 hover:text-brand-300 block font-medium">curious@mindmarket.com</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 uppercase tracking-wider text-sm">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Privacy Policy</a></li>
+                        <li><button class="hover:text-brand-400 transition-colors">Cookie Preferences</button></li>
+                    </ul>
+                    <div class="mt-8">
+                        <span class="block text-xs text-slate-500 mb-2">Member of</span>
+                        <div class="text-white font-bold tracking-widest text-lg">ESOMAR</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
+                <p>Copyright © 2026 MindMarket International</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
