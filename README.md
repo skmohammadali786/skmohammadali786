@@ -1,6 +1,6 @@
 <div align="center">
 
-<!-- Hero Card: Name, Resume Highlights, Live Status & High-Res Portrait Photo -->
+<!-- Hero Card: Name, Resume Highlights, Live Status & Pure Vector SVG Color Portrait -->
 <img src="./cards/hero.svg" width="100%" alt="SK Mohammad Ali - Hero Banner" />
 
 <br/><br/>
@@ -14,6 +14,11 @@
 
 <!-- Core Engineering & Assistive Projects -->
 <img src="./cards/card_engineering_projects.svg" width="100%" alt="Featured Engineering Systems - Assistive Wheelchair & Building Systems TGA" />
+
+<br/><br/>
+
+<!-- Practical Systems, Engineering Experience & Technical Stack (Full Colorful Graphic Section) -->
+<img src="./cards/card_tech_stack.svg" width="100%" alt="Practical Systems, Engineering Experience & Technical Stack" />
 
 <br/><br/>
 
@@ -40,30 +45,6 @@
 </p>
 
 </div>
-
----
-
-### ⚡ Practical Systems, Engineering Experience & Technical Stack
-
-```text
-┌────────────────────────┬────────────────────────────────────────────────────────────────────────────┐
-│ DOMAIN                 │ KEY EXPERIENCE & TECHNOLOGIES                                              │
-├────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
-│ Electrical & Embedded  │ ESP32 Prototyping, Voice-Controlled Wheelchair, Motor-Driver Interfacing,   │
-│                        │ Sensor Telemetry, Control Systems, Technical Troubleshooting, PCB          │
-├────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
-│ Building Systems (TGA) │ Electrical Systems in Buildings, Technical Building Equipment (TGA),      │
-│                        │ Engineering Design Coordination, AutoCAD, MATLAB, Documentation            │
-├────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
-│ Full-Stack & Platforms │ TypeScript, Next.js, React Native, Node.js, Expo, PostgreSQL, Supabase,    │
-│                        │ SQL, Git/GitHub, REST API Design, Debugging (UConnect App & RailGuard)     │
-├────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
-│ Leadership & Projects  │ Student Leadership Coordination (May 2023 - Pres.), Task Breakdown,       │
-│                        │ Milestone Planning (Nov 2024 - Pres.), Event Coordination (May 2025)       │
-├────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
-│ Languages Spoken       │ Bengali (Native), English (Proficient), Hindi (Proficient), German (B1)   │
-└────────────────────────┴────────────────────────────────────────────────────────────────────────────┘
-```
 
 ---
 

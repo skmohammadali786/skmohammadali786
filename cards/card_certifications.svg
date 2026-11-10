@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 240" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 270" width="100%" height="100%">
   <defs>
     <style>
       
@@ -13,6 +13,11 @@
           0% { opacity: 0; transform: translateY(35px) rotate(1.2deg); }
           70% { transform: translateY(-3px) rotate(-0.4deg); }
           100% { opacity: 1; transform: translateY(0) rotate(0); }
+        }
+
+        @keyframes printRow {
+          0% { opacity: 0; transform: translateY(-2.5px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseDot {
@@ -74,7 +79,7 @@
 
   <g class="rise-up" style="animation-delay: 250ms; opacity: 0;">
     <!-- Card Frame -->
-    <rect x="0" y="0" width="440" height="240" rx="10" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
+    <rect x="0" y="0" width="440" height="270" rx="10" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
     <path d="M0 10 Q0 0 10 0 L430 0 Q440 0 440 10 L440 5 L0 5 Z" fill="url(#certGrad)" />
 
     <!-- Header with Medal Icon -->
@@ -88,24 +93,34 @@
 
     <line x1="24" y1="64" x2="416" y2="64" stroke="#EFECE6" stroke-width="1" />
 
-    <!-- Certification 1: Samsung Solve for Tomorrow -->
-    <g transform="translate(24, 76)">
-      <rect x="0" y="0" width="392" height="66" rx="6" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
-      <rect x="12" y="12" width="6" height="42" rx="3" fill="#0284C7" />
+    <!-- Certification 1: Samsung Solve for Tomorrow (Spacious, Zero Overlap) -->
+    <g transform="translate(24, 74)">
+      <rect x="0" y="0" width="392" height="82" rx="7" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+      <rect x="0" y="0" width="5" height="82" rx="2" fill="#0284C7" />
       
-      <text x="28" y="26" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#1A1A1A">Samsung Solve for Tomorrow</text>
-      <text x="28" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5" fill="#55504A">National Innovation Challenge Participation Certificate</text>
-      <text x="28" y="58" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" fill="#0369A1" font-weight="600">INNOVATION · ASSISTIVE HARDWARE · IMPACT</text>
+      <!-- Top Row: Title + National Pill -->
+      <text x="16" y="24" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#1A1A1A">Samsung Solve for Tomorrow</text>
+      <rect x="308" y="10" width="76" height="18" rx="3" fill="#0284C7" />
+      <text x="346" y="22.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">NATIONAL</text>
+
+      <!-- Subtitle -->
+      <text x="16" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5" fill="#55504A">National Innovation Challenge Participation Certificate</text>
+      <text x="16" y="64" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" fill="#0369A1" font-weight="600">INNOVATION · ASSISTIVE HARDWARE · IMPACT</text>
     </g>
 
-    <!-- Certification 2: AURA Participation Certificate -->
-    <g transform="translate(24, 150)">
-      <rect x="0" y="0" width="392" height="66" rx="6" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
-      <rect x="12" y="12" width="6" height="42" rx="3" fill="#D97706" />
+    <!-- Certification 2: AURA Participation Certificate (Spacious, Zero Overlap) -->
+    <g transform="translate(24, 168)">
+      <rect x="0" y="0" width="392" height="82" rx="7" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+      <rect x="0" y="0" width="5" height="82" rx="2" fill="#D97706" />
       
-      <text x="28" y="26" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#1A1A1A">AURA Participation Certificate</text>
-      <text x="28" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5" fill="#55504A">Engineering &amp; Technical Prototyping Challenge</text>
-      <text x="28" y="58" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" fill="#D97706" font-weight="600">SYSTEMS PROTOTYPING · COLLABORATION</text>
+      <!-- Top Row: Title + Honor Pill -->
+      <text x="16" y="24" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#1A1A1A">AURA Participation Certificate</text>
+      <rect x="308" y="10" width="76" height="18" rx="3" fill="#D97706" />
+      <text x="346" y="22.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">HONOR</text>
+
+      <!-- Subtitle -->
+      <text x="16" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5" fill="#55504A">Engineering &amp; Technical Prototyping Challenge</text>
+      <text x="16" y="64" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" fill="#D97706" font-weight="600">SYSTEMS DESIGN · ELECTRONICS · TEAMWORK</text>
     </g>
   </g>
 </svg>

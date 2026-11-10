@@ -2,8 +2,8 @@
 """
 render_readme_cards.py
 Generates editorial animated SVG cards for SK Mohammad Ali's GitHub profile README.
-Includes real colorful graphic cards for Education, Certifications, and Core Projects,
-and embeds the uploaded portrait image directly inside the Hero card.
+Includes pure vector SVG portrait generated from user's photograph,
+colorful graphical cards for Education, Certifications, Engineering Projects, and Technical Stack.
 Supports STATIC=1 mode for static snapshot previews.
 """
 
@@ -11,7 +11,7 @@ import os
 import sys
 import json
 import re
-import base64
+import ctypes
 import urllib.request
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -46,6 +46,7 @@ COLOR_BLUE_PALE = "#DBEAFE"
 COLOR_RED = "#DC2626"
 COLOR_YELLOW = "#D97706"
 COLOR_EMERALD = "#059669"
+COLOR_PURPLE = "#7C3AED"
 
 # Fonts
 SERIF_FAMILY = "'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif"
@@ -166,7 +167,7 @@ def get_base_css():
     if IS_STATIC:
         return f"""
         * {{ box-sizing: border-box; }}
-        .fade-in, .rise-up, .swing-in, .pop-sq, .grow-bar {{ opacity: 1 !important; transform: none !important; }}
+        .fade-in, .rise-up, .swing-in, .pop-sq, .grow-bar, .p-row {{ opacity: 1 !important; transform: none !important; }}
         """
     return f"""
         * {{ box-sizing: border-box; }}
@@ -180,6 +181,11 @@ def get_base_css():
           0% {{ opacity: 0; transform: translateY(35px) rotate(1.2deg); }}
           70% {{ transform: translateY(-3px) rotate(-0.4deg); }}
           100% {{ opacity: 1; transform: translateY(0) rotate(0); }}
+        }}
+
+        @keyframes printRow {{
+          0% {{ opacity: 0; transform: translateY(-2.5px); }}
+          100% {{ opacity: 1; transform: translateY(0); }}
         }}
 
         @keyframes pulseDot {{
@@ -234,21 +240,109 @@ def get_base_css():
     """
 
 
-def get_profile_image_base64():
-    """Reads profile.jpg and converts to base64 data URI."""
-    if os.path.exists(PROFILE_IMAGE_PATH):
-        with open(PROFILE_IMAGE_PATH, "rb") as f:
-            encoded = base64.b64encode(f.read()).decode("ascii")
-            return f"data:image/jpeg;base64,{encoded}"
-    return ""
+def generate_vector_portrait_svg_elements(box_x=600, box_y=44, box_w=295, box_h=295):
+    """Generates pure vector SVG circles from the user's photo using libturbojpeg."""
+    if not os.path.exists(PROFILE_IMAGE_PATH):
+        return ""
+
+    try:
+        tj = ctypes.CDLL('/data/user/0/com.termux/files/usr/lib/libturbojpeg.so')
+        tj.tjInitDecompress.restype = ctypes.c_void_p
+        tj.tjDestroy.argtypes = [ctypes.c_void_p]
+        handle = tj.tjInitDecompress()
+
+        with open(PROFILE_IMAGE_PATH, 'rb') as f:
+            jpeg_data = f.read()
+
+        w = ctypes.c_int()
+        h = ctypes.c_int()
+        subsamp = ctypes.c_int()
+        colorspace = ctypes.c_int()
+
+        tj.tjDecompressHeader3.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_ulong, ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int), ctypes.POINTER(ctypes.c_int)]
+        tj.tjDecompressHeader3(handle, jpeg_data, len(jpeg_data), ctypes.byref(w), ctypes.byref(h), ctypes.byref(subsamp), ctypes.byref(colorspace))
+
+        tj.tjDecompress2.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_ulong, ctypes.POINTER(ctypes.c_ubyte), ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int]
+        buf = (ctypes.c_ubyte * (w.value * h.value * 3))()
+        tj.tjDecompress2(handle, jpeg_data, len(jpeg_data), buf, w.value, 0, h.value, 0, 0)
+        tj.tjDestroy(handle)
+
+        W = w.value
+        H = h.value
+
+        x0, x1 = 360, 1680
+        y0, y1 = 480, 1920
+
+        COLS = 54
+        ROWS = 56
+
+        step_x = box_w / COLS
+        step_y = box_h / ROWS
+
+        rows_svg = []
+
+        for r in range(ROWS):
+            py = int(y0 + (r / ROWS) * (y1 - y0))
+            row_circles = []
+            for c in range(COLS):
+                px = int(x0 + (c / COLS) * (x1 - x0))
+                r_sum = g_sum = b_sum = 0
+                cnt = 0
+                for dy in range(-3, 4):
+                    for dx in range(-3, 4):
+                        sx = min(W-1, max(0, px + dx))
+                        sy = min(H-1, max(0, py + dy))
+                        idx = (sy * W + sx) * 3
+                        r_sum += buf[idx]
+                        g_sum += buf[idx+1]
+                        b_sum += buf[idx+2]
+                        cnt += 1
+                avg_r = int(r_sum / cnt)
+                avg_g = int(g_sum / cnt)
+                avg_b = int(b_sum / cnt)
+                lum = 0.299 * avg_r + 0.587 * avg_g + 0.114 * avg_b
+
+                cx = round(box_x + c * step_x + step_x/2, 1)
+                cy = round(box_y + r * step_y + step_y/2, 1)
+                rad = round(2.3 + (1.0 - lum/255.0) * 0.8, 1)
+                hex_col = f"#{avg_r:02x}{avg_g:02x}{avg_b:02x}"
+                row_circles.append(f'<circle cx="{cx}" cy="{cy}" r="{rad}" fill="{hex_col}" />')
+
+            delay = 0 if IS_STATIC else 100 + (r * 18)
+            anim_css = f'style="animation: printRow 0.35s ease-out {delay}ms forwards; opacity: {"1" if IS_STATIC else "0"};"'
+            rows_svg.append(f'<g class="p-row" {anim_css}>{"".join(row_circles)}</g>')
+
+        return "\n    ".join(rows_svg)
+    except Exception as e:
+        print(f"[!] Warning: Vector portrait generation error: {e}")
+        return ""
+
+
+def render_standalone_portrait_svg():
+    """Renders a standalone portrait.svg file."""
+    box_w = 320
+    box_h = 320
+    elements = generate_vector_portrait_svg_elements(box_x=10, box_y=10, box_w=300, box_h=300)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {box_w} {box_h}" width="100%" height="100%">
+  <defs>
+    <style>
+      {get_base_css()}
+    </style>
+  </defs>
+  <rect width="{box_w}" height="{box_h}" rx="14" fill="#18151D" />
+  <rect x="10" y="10" width="300" height="300" rx="10" fill="none" stroke="{COLOR_BORDER}" stroke-width="1.5" />
+  {elements}
+</svg>"""
+    return svg
 
 
 def render_hero_card():
-    """Renders the top Hero SVG card with real uploaded photograph and full resume highlights."""
+    """Renders the top Hero SVG card with pure vector color portrait and comprehensive resume details."""
     width = 940
     height = 380
 
-    image_data_uri = get_profile_image_base64()
+    portrait_vector_elements = generate_vector_portrait_svg_elements(box_x=600, box_y=44, box_w=295, box_h=295)
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
   <defs>
@@ -266,9 +360,6 @@ def render_hero_card():
     <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="0.75" fill="#E6DFD2" opacity="0.7" />
     </pattern>
-    <clipPath id="avatarRoundedClip">
-      <rect x="600" y="44" width="295" height="295" rx="14" />
-    </clipPath>
   </defs>
 
   <!-- Paper Card Base -->
@@ -277,7 +368,7 @@ def render_hero_card():
   <rect x="16" y="16" width="{width - 32}" height="{height - 32}" rx="6" fill="none" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" stroke-dasharray="4 4" />
 
   <!-- Corner Blueprint Marks -->
-  <text x="24" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">+ REF.01 // PROFILE</text>
+  <text x="24" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">+ REF.01 // PORTFOLIO</text>
   <text x="{width - 95}" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">EST. 2024 +</text>
 
   <!-- Left Column: Identity & Comprehensive Resume Details -->
@@ -332,19 +423,18 @@ def render_hero_card():
   <!-- Divider Line -->
   <line x1="575" y1="45" x2="575" y2="345" stroke="{COLOR_BORDER}" stroke-width="1" stroke-dasharray="3 3" />
 
-  <!-- Right Column: Real Uploaded Photograph in Elegant Frame -->
+  <!-- Right Column: Pure Vector SVG Color Portrait -->
   <g class="rise-up" style="animation-delay: 200ms; opacity: {'1' if IS_STATIC else '0'};">
-    <!-- Frame Backing & Shadow -->
-    <rect x="596" y="40" width="303" height="303" rx="16" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
+    <rect x="596" y="40" width="303" height="303" rx="16" fill="#18151D" stroke="{COLOR_BORDER}" stroke-width="1.5" />
     
-    <!-- Real Uploaded Profile Photo -->
-    <image x="600" y="44" width="295" height="295" href="{image_data_uri}" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatarRoundedClip)" />
-    
-    <!-- Sleek Overlay Border -->
-    <rect x="600" y="44" width="295" height="295" rx="14" fill="none" stroke="{COLOR_BORDER}" stroke-width="2" />
+    <!-- Vector Portrait Points -->
+    {portrait_vector_elements}
+
+    <!-- Frame Border -->
+    <rect x="600" y="44" width="295" height="295" rx="14" fill="none" stroke="{COLOR_BORDER}" stroke-width="1.5" />
 
     <!-- Top Label Badge on Photo -->
-    <rect x="612" y="56" width="160" height="22" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" opacity="0.92" />
+    <rect x="612" y="56" width="160" height="22" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" opacity="0.94" />
     <text x="620" y="71" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_BLUE}">SK MOHAMMAD ALI</text>
 
     <!-- Corner Live Pulse Beacon -->
@@ -352,8 +442,8 @@ def render_hero_card():
     <circle cx="880" cy="56" r="4.5" fill="#10B981" class="pulse-beacon" />
 
     <!-- Bottom Tag -->
-    <rect x="612" y="308" width="180" height="20" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" opacity="0.9" />
-    <text x="620" y="322" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_INK}">ENGINEERING PORTFOLIO</text>
+    <rect x="612" y="308" width="180" height="20" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" opacity="0.94" />
+    <text x="620" y="322" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_INK}">VECTOR PHOTOMETRIC // SVG</text>
   </g>
 </svg>"""
     return svg
@@ -415,9 +505,9 @@ def render_tile_card(tile_id, category, title, metric, description, accent_color
 
 
 def render_education_card():
-    """Renders a colorful graphic card for Academic Education with timeline and badges."""
+    """Renders a colorful graphic card for Academic Education with spacious non-overlapping layout."""
     width = 440
-    height = 240
+    height = 270
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
   <defs>
@@ -437,7 +527,6 @@ def render_education_card():
 
     <!-- Header with Graduation Icon -->
     <g transform="translate(24, 22)">
-      <!-- Graduation Icon Badge -->
       <rect x="0" y="0" width="30" height="30" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1" />
       <text x="7" y="21" font-size="16">🎓</text>
 
@@ -448,45 +537,51 @@ def render_education_card():
     <line x1="24" y1="64" x2="{width - 24}" y2="64" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" />
 
     <!-- Timeline Entry 1: Aliah University -->
-    <g transform="translate(24, 78)">
+    <g transform="translate(24, 76)">
+      <!-- Connecting Vertical Line -->
+      <line x1="6" y1="16" x2="6" y2="82" stroke="{COLOR_BLUE_PALE}" stroke-width="2" />
+
       <!-- Node Dot -->
       <circle cx="6" cy="6" r="6" fill="{COLOR_BLUE}" />
       <circle cx="6" cy="6" r="3" fill="#FFFFFF" />
-      <line x1="6" y1="14" x2="6" y2="70" stroke="{COLOR_BLUE_PALE}" stroke-width="2" />
 
-      <!-- Text Details -->
-      <text x="24" y="8" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_BLUE}">AUG 2024 – PRESENT</text>
-      <text x="24" y="25" font-family="{SERIF_FAMILY}" font-size="17" font-weight="700" fill="{COLOR_INK}">B.Tech, Electrical Engineering</text>
-      <text x="24" y="42" font-family="{SANS_FAMILY}" font-size="12" font-weight="600" fill="{COLOR_INK_MUTED}">Aliah University, Kolkata</text>
-      <text x="24" y="58" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_FAINT}">Embedded Control · Motor Drivers · TGA Systems</text>
+      <!-- Date Badge + Status Pill Aligned Side-by-Side (Zero Overlap) -->
+      <text x="24" y="9" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="700" fill="{COLOR_BLUE}">AUG 2024 – PRESENT</text>
+      <rect x="180" y="-3" width="92" height="17" rx="3.5" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
+      <circle cx="188" cy="5.5" r="2.5" fill="#10B981" />
+      <text x="195" y="9.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="#047857">IN PROGRESS</text>
+
+      <!-- Details -->
+      <text x="24" y="28" font-family="{SERIF_FAMILY}" font-size="16.5" font-weight="700" fill="{COLOR_INK}">B.Tech, Electrical Engineering</text>
+      <text x="24" y="46" font-family="{SANS_FAMILY}" font-size="12" font-weight="600" fill="{COLOR_INK_MUTED}">Aliah University, Kolkata</text>
+      <text x="24" y="62" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_FAINT}">Embedded Control · Motor Drivers · TGA Systems</text>
     </g>
 
     <!-- Timeline Entry 2: Al-Ameen Mission -->
-    <g transform="translate(24, 156)">
+    <g transform="translate(24, 168)">
       <!-- Node Dot -->
       <circle cx="6" cy="6" r="6" fill="{COLOR_EMERALD}" />
       <circle cx="6" cy="6" r="3" fill="#FFFFFF" />
 
-      <!-- Text Details -->
-      <text x="24" y="8" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_EMERALD}">2018 – 2024</text>
-      <text x="24" y="25" font-family="{SERIF_FAMILY}" font-size="17" font-weight="700" fill="{COLOR_INK}">Intermediate Science &amp; High School</text>
-      <text x="24" y="42" font-family="{SANS_FAMILY}" font-size="12" font-weight="600" fill="{COLOR_INK_MUTED}">Al-Ameen Mission</text>
-      <text x="24" y="58" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_FAINT}">Mathematics · Physics · Chemistry · Foundation</text>
-    </g>
+      <!-- Date Badge + Status Pill Aligned Side-by-Side (Zero Overlap) -->
+      <text x="24" y="9" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="700" fill="{COLOR_EMERALD}">2018 – 2024</text>
+      <rect x="110" y="-3" width="86" height="17" rx="3.5" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1" />
+      <text x="153" y="9.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">✓ COMPLETED</text>
 
-    <!-- Status Badge -->
-    <rect x="{width - 130}" y="200" width="106" height="22" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
-    <circle cx="{width - 120}" cy="211" r="3" fill="#10B981" />
-    <text x="{width - 110}" y="215" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="#047857">IN PROGRESS</text>
+      <!-- Details -->
+      <text x="24" y="28" font-family="{SERIF_FAMILY}" font-size="16.5" font-weight="700" fill="{COLOR_INK}">Intermediate Science &amp; High School</text>
+      <text x="24" y="46" font-family="{SANS_FAMILY}" font-size="12" font-weight="600" fill="{COLOR_INK_MUTED}">Al-Ameen Mission</text>
+      <text x="24" y="62" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_FAINT}">Mathematics · Physics · Chemistry Foundation</text>
+    </g>
   </g>
 </svg>"""
     return svg
 
 
 def render_certifications_card():
-    """Renders a colorful graphic card for Verified Certifications & Honors."""
+    """Renders a colorful graphic card for Verified Certifications with spacious non-overlapping layout."""
     width = 440
-    height = 240
+    height = 270
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
   <defs>
@@ -515,24 +610,34 @@ def render_certifications_card():
 
     <line x1="24" y1="64" x2="{width - 24}" y2="64" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" />
 
-    <!-- Certification 1: Samsung Solve for Tomorrow -->
-    <g transform="translate(24, 76)">
-      <rect x="0" y="0" width="{width - 48}" height="66" rx="6" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-      <rect x="12" y="12" width="6" height="42" rx="3" fill="#0284C7" />
+    <!-- Certification 1: Samsung Solve for Tomorrow (Spacious, Zero Overlap) -->
+    <g transform="translate(24, 74)">
+      <rect x="0" y="0" width="{width - 48}" height="82" rx="7" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+      <rect x="0" y="0" width="5" height="82" rx="2" fill="#0284C7" />
       
-      <text x="28" y="26" font-family="{SERIF_FAMILY}" font-size="16" font-weight="700" fill="{COLOR_INK}">Samsung Solve for Tomorrow</text>
-      <text x="28" y="44" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">National Innovation Challenge Participation Certificate</text>
-      <text x="28" y="58" font-family="{MONO_FAMILY}" font-size="9.5" fill="#0369A1" font-weight="600">INNOVATION · ASSISTIVE HARDWARE · IMPACT</text>
+      <!-- Top Row: Title + National Pill -->
+      <text x="16" y="24" font-family="{SERIF_FAMILY}" font-size="16" font-weight="700" fill="{COLOR_INK}">Samsung Solve for Tomorrow</text>
+      <rect x="{width - 132}" y="10" width="76" height="18" rx="3" fill="#0284C7" />
+      <text x="{width - 94}" y="22.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">NATIONAL</text>
+
+      <!-- Subtitle -->
+      <text x="16" y="45" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">National Innovation Challenge Participation Certificate</text>
+      <text x="16" y="64" font-family="{MONO_FAMILY}" font-size="9.5" fill="#0369A1" font-weight="600">INNOVATION · ASSISTIVE HARDWARE · IMPACT</text>
     </g>
 
-    <!-- Certification 2: AURA Participation Certificate -->
-    <g transform="translate(24, 150)">
-      <rect x="0" y="0" width="{width - 48}" height="66" rx="6" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-      <rect x="12" y="12" width="6" height="42" rx="3" fill="{COLOR_YELLOW}" />
+    <!-- Certification 2: AURA Participation Certificate (Spacious, Zero Overlap) -->
+    <g transform="translate(24, 168)">
+      <rect x="0" y="0" width="{width - 48}" height="82" rx="7" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+      <rect x="0" y="0" width="5" height="82" rx="2" fill="{COLOR_YELLOW}" />
       
-      <text x="28" y="26" font-family="{SERIF_FAMILY}" font-size="16" font-weight="700" fill="{COLOR_INK}">AURA Participation Certificate</text>
-      <text x="28" y="44" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">Engineering &amp; Technical Prototyping Challenge</text>
-      <text x="28" y="58" font-family="{MONO_FAMILY}" font-size="9.5" fill="{COLOR_YELLOW}" font-weight="600">SYSTEMS PROTOTYPING · COLLABORATION</text>
+      <!-- Top Row: Title + Honor Pill -->
+      <text x="16" y="24" font-family="{SERIF_FAMILY}" font-size="16" font-weight="700" fill="{COLOR_INK}">AURA Participation Certificate</text>
+      <rect x="{width - 132}" y="10" width="76" height="18" rx="3" fill="{COLOR_YELLOW}" />
+      <text x="{width - 94}" y="22.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">HONOR</text>
+
+      <!-- Subtitle -->
+      <text x="16" y="45" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">Engineering &amp; Technical Prototyping Challenge</text>
+      <text x="16" y="64" font-family="{MONO_FAMILY}" font-size="9.5" fill="{COLOR_YELLOW}" font-weight="600">SYSTEMS DESIGN · ELECTRONICS · TEAMWORK</text>
     </g>
   </g>
 </svg>"""
@@ -567,20 +672,20 @@ def render_engineering_projects_card():
     <!-- Left Half: Voice-Controlled Wheelchair Prototype -->
     <g transform="translate(36, 75)">
       <rect x="0" y="0" width="395" height="110" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-      <rect x="14" y="14" width="4" height="82" rx="2" fill="{COLOR_BLUE}" />
+      <rect x="0" y="0" width="5" height="110" rx="2" fill="{COLOR_BLUE}" />
 
-      <text x="28" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">
+      <text x="24" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">
         Voice-Controlled Wheelchair Prototype
       </text>
-      <text x="28" y="48" font-family="{SANS_FAMILY}" font-size="12" fill="{COLOR_INK_MUTED}">
+      <text x="24" y="48" font-family="{SANS_FAMILY}" font-size="12" fill="{COLOR_INK_MUTED}">
         Assistive mobility device powered by an ESP32 microcontroller.
       </text>
-      <text x="28" y="66" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">
+      <text x="24" y="66" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">
         Engineered logic-power isolation and motor-driver interfacing.
       </text>
 
       <!-- Tags -->
-      <g transform="translate(28, 80)">
+      <g transform="translate(24, 80)">
         <rect x="0" y="0" width="55" height="18" rx="3" fill="#DBEAFE" />
         <text x="27" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">ESP32</text>
 
@@ -598,20 +703,20 @@ def render_engineering_projects_card():
     <!-- Right Half: Building Electrical Systems (TGA) -->
     <g transform="translate(468, 75)">
       <rect x="0" y="0" width="395" height="110" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-      <rect x="14" y="14" width="4" height="82" rx="2" fill="{COLOR_YELLOW}" />
+      <rect x="0" y="0" width="5" height="110" rx="2" fill="{COLOR_YELLOW}" />
 
-      <text x="28" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">
+      <text x="24" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">
         Building Electrical Systems (TGA)
       </text>
-      <text x="28" y="48" font-family="{SANS_FAMILY}" font-size="12" fill="{COLOR_INK_MUTED}">
+      <text x="24" y="48" font-family="{SANS_FAMILY}" font-size="12" fill="{COLOR_INK_MUTED}">
         Technical building equipment planning &amp; electrical consulting.
       </text>
-      <text x="28" y="66" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">
+      <text x="24" y="66" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">
         System coordination, AutoCAD electrical schematics &amp; power.
       </text>
 
       <!-- Tags -->
-      <g transform="translate(28, 80)">
+      <g transform="translate(24, 80)">
         <rect x="0" y="0" width="80" height="18" rx="3" fill="#FEF3C7" />
         <text x="40" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_YELLOW}" text-anchor="middle">TGA SYSTEMS</text>
 
@@ -621,6 +726,135 @@ def render_engineering_projects_card():
         <rect x="160" y="0" width="95" height="18" rx="3" fill="#F3F4F6" />
         <text x="207" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_INK}" text-anchor="middle">POWER PLANNING</text>
       </g>
+    </g>
+  </g>
+</svg>"""
+    return svg
+
+
+def render_tech_stack_card():
+    """Renders a colorful graphic card for Practical Systems & Technical Stack (replacing ASCII table)."""
+    width = 940
+    height = 320
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {get_base_css()}
+    </style>
+  </defs>
+
+  <!-- Base Card -->
+  <rect x="0" y="0" width="{width}" height="{height}" rx="12" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
+
+  <!-- Section Header -->
+  <g transform="translate(42, 34)">
+    <text x="0" y="0" font-family="{MONO_FAMILY}" font-size="11" font-weight="700" fill="{COLOR_BLUE}" letter-spacing="1">
+      TECHNICAL CAPABILITIES // SYSTEMS, ARCHITECTURE &amp; SKILLS
+    </text>
+    <text x="0" y="22" font-family="{SERIF_FAMILY}" font-size="22" font-weight="700" fill="{COLOR_INK}">
+      Practical Systems, Engineering Experience &amp; Technical Stack
+    </text>
+  </g>
+
+  <!-- 2x2 Grid of Colorful Skill Domains -->
+  <!-- Block 1: Electrical & Embedded -->
+  <g transform="translate(42, 74)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="{COLOR_BLUE}" />
+
+    <text x="20" y="24" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="700" fill="{COLOR_BLUE}" letter-spacing="0.5">01 // ELECTRICAL &amp; EMBEDDED</text>
+    <text x="20" y="44" font-family="{SERIF_FAMILY}" font-size="16.5" font-weight="700" fill="{COLOR_INK}">Hardware, Firmware &amp; Interfacing</text>
+    <text x="20" y="62" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_MUTED}">ESP32, Voice Wheelchair, Motor Drivers, Sensors, PCB, Control</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="50" height="18" rx="3" fill="#DBEAFE" />
+      <text x="25" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">ESP32</text>
+
+      <rect x="56" y="0" width="82" height="18" rx="3" fill="#EFF6FF" />
+      <text x="97" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_INK}" text-anchor="middle">MOTOR DRIVER</text>
+
+      <rect x="144" y="0" width="70" height="18" rx="3" fill="#ECFDF5" />
+      <text x="179" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="#047857" text-anchor="middle">CONTROL</text>
+
+      <rect x="220" y="0" width="45" height="18" rx="3" fill="#F3F4F6" />
+      <text x="242" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_INK}" text-anchor="middle">PCB</text>
+    </g>
+  </g>
+
+  <!-- Block 2: Building Systems (TGA) -->
+  <g transform="translate(483, 74)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="{COLOR_YELLOW}" />
+
+    <text x="20" y="24" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="700" fill="{COLOR_YELLOW}" letter-spacing="0.5">02 // BUILDING SYSTEMS (TGA)</text>
+    <text x="20" y="44" font-family="{SERIF_FAMILY}" font-size="16.5" font-weight="700" fill="{COLOR_INK}">Infrastructure &amp; Planning</text>
+    <text x="20" y="62" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_MUTED}">Technical Building Equipment, AutoCAD, MATLAB, Power Distribution</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="78" height="18" rx="3" fill="#FEF3C7" />
+      <text x="39" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_YELLOW}" text-anchor="middle">TGA SYSTEMS</text>
+
+      <rect x="84" y="0" width="60" height="18" rx="3" fill="#EFF6FF" />
+      <text x="114" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">AUTOCAD</text>
+
+      <rect x="150" y="0" width="56" height="18" rx="3" fill="#EFF6FF" />
+      <text x="178" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">MATLAB</text>
+
+      <rect x="212" y="0" width="90" height="18" rx="3" fill="#F3F4F6" />
+      <text x="257" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_INK}" text-anchor="middle">POWER PLANNING</text>
+    </g>
+  </g>
+
+  <!-- Block 3: Full-Stack & Platforms -->
+  <g transform="translate(42, 195)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="{COLOR_EMERALD}" />
+
+    <text x="20" y="24" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="700" fill="{COLOR_EMERALD}" letter-spacing="0.5">03 // SOFTWARE &amp; PLATFORMS</text>
+    <text x="20" y="44" font-family="{SERIF_FAMILY}" font-size="16.5" font-weight="700" fill="{COLOR_INK}">Full-Stack &amp; Mobile Ecosystems</text>
+    <text x="20" y="62" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_MUTED}">TypeScript, Next.js, React Native, Node.js, PostgreSQL, Supabase</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="70" height="18" rx="3" fill="#DBEAFE" />
+      <text x="35" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">TYPESCRIPT</text>
+
+      <rect x="76" y="0" width="60" height="18" rx="3" fill="#F3F4F6" />
+      <text x="106" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_INK}" text-anchor="middle">NEXT.JS</text>
+
+      <rect x="142" y="0" width="76" height="18" rx="3" fill="#E0F2FE" />
+      <text x="180" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="#0284C7" text-anchor="middle">REACT NATIVE</text>
+
+      <rect x="224" y="0" width="68" height="18" rx="3" fill="#ECFDF5" />
+      <text x="258" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="#047857" text-anchor="middle">SUPABASE</text>
+    </g>
+  </g>
+
+  <!-- Block 4: Leadership, Projects & Languages -->
+  <g transform="translate(483, 195)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="{COLOR_PURPLE}" />
+
+    <text x="20" y="24" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="700" fill="{COLOR_PURPLE}" letter-spacing="0.5">04 // COORDINATION &amp; LANGUAGES</text>
+    <text x="20" y="44" font-family="{SERIF_FAMILY}" font-size="16.5" font-weight="700" fill="{COLOR_INK}">Project Leadership &amp; Communication</text>
+    <text x="20" y="62" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_MUTED}">Student Leadership, Milestone Planning, Event Coordination</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="70" height="18" rx="3" fill="#F3E8FF" />
+      <text x="35" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_PURPLE}" text-anchor="middle">LEADERSHIP</text>
+
+      <rect x="76" y="0" width="80" height="18" rx="3" fill="#EFF6FF" />
+      <text x="116" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">PLANNING</text>
+
+      <rect x="162" y="0" width="70" height="18" rx="3" fill="#ECFDF5" />
+      <text x="197" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="#047857" text-anchor="middle">GERMAN (B1)</text>
+
+      <rect x="238" y="0" width="80" height="18" rx="3" fill="#FEF3C7" />
+      <text x="278" y="12.5" font-family="{MONO_FAMILY}" font-size="8.5" font-weight="600" fill="{COLOR_YELLOW}" text-anchor="middle">EN · BN · HI</text>
     </g>
   </g>
 </svg>"""
@@ -881,13 +1115,19 @@ def main():
     data = fetch_contributions(USERNAME)
     print(f"[*] Total contributions: {data.get('total_contributions')}")
 
-    # 1. Hero Card (Embeds actual photo)
+    # 1. Hero Card (Embeds pure vector SVG portrait)
     hero_svg = render_hero_card()
     with open(os.path.join(CARDS_DIR, "hero.svg"), "w", encoding="utf-8") as f:
         f.write(hero_svg)
-    print("[+] Rendered cards/hero.svg (with uploaded photo)")
+    print("[+] Rendered cards/hero.svg (with pure vector SVG portrait)")
 
-    # 2. Three World Tiles
+    # 2. Standalone Portrait SVG
+    portrait_svg = render_standalone_portrait_svg()
+    with open(os.path.join(CARDS_DIR, "portrait.svg"), "w", encoding="utf-8") as f:
+        f.write(portrait_svg)
+    print("[+] Rendered cards/portrait.svg")
+
+    # 3. Three World Tiles
     t1_svg = render_tile_card(
         tile_id="hardware",
         category="01 / HARDWARE &amp; IOT",
@@ -927,37 +1167,43 @@ def main():
         f.write(t3_svg)
     print("[+] Rendered cards/tile_innovation.svg")
 
-    # 3. Monthly Contributions Chart
-    chart_svg = render_contributions_chart(data)
-    with open(os.path.join(CARDS_DIR, "contributions_chart.svg"), "w", encoding="utf-8") as f:
-        f.write(chart_svg)
-    print("[+] Rendered cards/contributions_chart.svg")
-
-    # 4. 52-Week Blue Contribution Heatmap
-    graph_svg = render_contribution_graph(data)
-    with open(os.path.join(CARDS_DIR, "contribution_graph.svg"), "w", encoding="utf-8") as f:
-        f.write(graph_svg)
-    print("[+] Rendered cards/contribution_graph.svg")
-
-    # 5. Core Engineering Projects Card (Voice Wheelchair + TGA Systems)
+    # 4. Core Engineering Projects Card (Voice Wheelchair + TGA Systems)
     projects_svg = render_engineering_projects_card()
     with open(os.path.join(CARDS_DIR, "card_engineering_projects.svg"), "w", encoding="utf-8") as f:
         f.write(projects_svg)
     print("[+] Rendered cards/card_engineering_projects.svg")
 
-    # 6. Education Card
+    # 5. Colorful Practical Systems & Technical Stack Card
+    stack_svg = render_tech_stack_card()
+    with open(os.path.join(CARDS_DIR, "card_tech_stack.svg"), "w", encoding="utf-8") as f:
+        f.write(stack_svg)
+    print("[+] Rendered cards/card_tech_stack.svg")
+
+    # 6. Education Card (Fixed spacing, zero overlapping text)
     edu_svg = render_education_card()
     with open(os.path.join(CARDS_DIR, "card_education.svg"), "w", encoding="utf-8") as f:
         f.write(edu_svg)
     print("[+] Rendered cards/card_education.svg")
 
-    # 7. Certifications Card
+    # 7. Certifications Card (Fixed spacing, zero overlapping text)
     cert_svg = render_certifications_card()
     with open(os.path.join(CARDS_DIR, "card_certifications.svg"), "w", encoding="utf-8") as f:
         f.write(cert_svg)
     print("[+] Rendered cards/card_certifications.svg")
 
-    # 8. Featured Repos (RailGuard & UConnect App)
+    # 8. Monthly Contributions Chart
+    chart_svg = render_contributions_chart(data)
+    with open(os.path.join(CARDS_DIR, "contributions_chart.svg"), "w", encoding="utf-8") as f:
+        f.write(chart_svg)
+    print("[+] Rendered cards/contributions_chart.svg")
+
+    # 9. 52-Week Blue Contribution Heatmap
+    graph_svg = render_contribution_graph(data)
+    with open(os.path.join(CARDS_DIR, "contribution_graph.svg"), "w", encoding="utf-8") as f:
+        f.write(graph_svg)
+    print("[+] Rendered cards/contribution_graph.svg")
+
+    # 10. Featured Repos (RailGuard & UConnect App)
     repo1_svg = render_repo_card(
         name="RailGuard",
         role_badge="IOT &amp; EMBEDDED SYSTEM",

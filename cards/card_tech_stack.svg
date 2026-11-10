@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 320" width="100%" height="100%">
+  <defs>
+    <style>
+      
+        * { box-sizing: border-box; }
+        
+        @keyframes riseUp {
+          0% { opacity: 0; transform: translateY(18px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes swingIn {
+          0% { opacity: 0; transform: translateY(35px) rotate(1.2deg); }
+          70% { transform: translateY(-3px) rotate(-0.4deg); }
+          100% { opacity: 1; transform: translateY(0) rotate(0); }
+        }
+
+        @keyframes printRow {
+          0% { opacity: 0; transform: translateY(-2.5px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseDot {
+          0%, 100% { opacity: 0.9; transform: scale(1); }
+          50% { opacity: 0.3; transform: scale(1.6); }
+        }
+
+        @keyframes arrowNudge {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(5px); }
+        }
+
+        @keyframes popSquare {
+          0% { opacity: 0; transform: scale(0.2); }
+          75% { transform: scale(1.15); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes growBar {
+          0% { transform: scaleY(0); }
+          100% { transform: scaleY(1); }
+        }
+
+        @keyframes popNumber {
+          0% { opacity: 0; transform: translateY(6px) scale(0.85); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .rise-up {
+          animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .pulse-beacon {
+          transform-origin: center;
+          animation: pulseDot 2.4s ease-in-out infinite;
+        }
+
+        .nudge-arrow {
+          animation: arrowNudge 2s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+            animation-delay: 0ms !important;
+            transform: none !important;
+            opacity: 1 !important;
+          }
+        }
+    
+    </style>
+  </defs>
+
+  <!-- Base Card -->
+  <rect x="0" y="0" width="940" height="320" rx="12" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
+
+  <!-- Section Header -->
+  <g transform="translate(42, 34)">
+    <text x="0" y="0" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" font-weight="700" fill="#1E40AF" letter-spacing="1">
+      TECHNICAL CAPABILITIES // SYSTEMS, ARCHITECTURE &amp; SKILLS
+    </text>
+    <text x="0" y="22" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" fill="#1A1A1A">
+      Practical Systems, Engineering Experience &amp; Technical Stack
+    </text>
+  </g>
+
+  <!-- 2x2 Grid of Colorful Skill Domains -->
+  <!-- Block 1: Electrical & Embedded -->
+  <g transform="translate(42, 74)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="#1E40AF" />
+
+    <text x="20" y="24" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#1E40AF" letter-spacing="0.5">01 // ELECTRICAL &amp; EMBEDDED</text>
+    <text x="20" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16.5" font-weight="700" fill="#1A1A1A">Hardware, Firmware &amp; Interfacing</text>
+    <text x="20" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#55504A">ESP32, Voice Wheelchair, Motor Drivers, Sensors, PCB, Control</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="50" height="18" rx="3" fill="#DBEAFE" />
+      <text x="25" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1E40AF" text-anchor="middle">ESP32</text>
+
+      <rect x="56" y="0" width="82" height="18" rx="3" fill="#EFF6FF" />
+      <text x="97" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1A1A1A" text-anchor="middle">MOTOR DRIVER</text>
+
+      <rect x="144" y="0" width="70" height="18" rx="3" fill="#ECFDF5" />
+      <text x="179" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#047857" text-anchor="middle">CONTROL</text>
+
+      <rect x="220" y="0" width="45" height="18" rx="3" fill="#F3F4F6" />
+      <text x="242" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1A1A1A" text-anchor="middle">PCB</text>
+    </g>
+  </g>
+
+  <!-- Block 2: Building Systems (TGA) -->
+  <g transform="translate(483, 74)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="#D97706" />
+
+    <text x="20" y="24" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#D97706" letter-spacing="0.5">02 // BUILDING SYSTEMS (TGA)</text>
+    <text x="20" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16.5" font-weight="700" fill="#1A1A1A">Infrastructure &amp; Planning</text>
+    <text x="20" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#55504A">Technical Building Equipment, AutoCAD, MATLAB, Power Distribution</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="78" height="18" rx="3" fill="#FEF3C7" />
+      <text x="39" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#D97706" text-anchor="middle">TGA SYSTEMS</text>
+
+      <rect x="84" y="0" width="60" height="18" rx="3" fill="#EFF6FF" />
+      <text x="114" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1E40AF" text-anchor="middle">AUTOCAD</text>
+
+      <rect x="150" y="0" width="56" height="18" rx="3" fill="#EFF6FF" />
+      <text x="178" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1E40AF" text-anchor="middle">MATLAB</text>
+
+      <rect x="212" y="0" width="90" height="18" rx="3" fill="#F3F4F6" />
+      <text x="257" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1A1A1A" text-anchor="middle">POWER PLANNING</text>
+    </g>
+  </g>
+
+  <!-- Block 3: Full-Stack & Platforms -->
+  <g transform="translate(42, 195)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="#059669" />
+
+    <text x="20" y="24" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#059669" letter-spacing="0.5">03 // SOFTWARE &amp; PLATFORMS</text>
+    <text x="20" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16.5" font-weight="700" fill="#1A1A1A">Full-Stack &amp; Mobile Ecosystems</text>
+    <text x="20" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#55504A">TypeScript, Next.js, React Native, Node.js, PostgreSQL, Supabase</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="70" height="18" rx="3" fill="#DBEAFE" />
+      <text x="35" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1E40AF" text-anchor="middle">TYPESCRIPT</text>
+
+      <rect x="76" y="0" width="60" height="18" rx="3" fill="#F3F4F6" />
+      <text x="106" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1A1A1A" text-anchor="middle">NEXT.JS</text>
+
+      <rect x="142" y="0" width="76" height="18" rx="3" fill="#E0F2FE" />
+      <text x="180" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#0284C7" text-anchor="middle">REACT NATIVE</text>
+
+      <rect x="224" y="0" width="68" height="18" rx="3" fill="#ECFDF5" />
+      <text x="258" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#047857" text-anchor="middle">SUPABASE</text>
+    </g>
+  </g>
+
+  <!-- Block 4: Leadership, Projects & Languages -->
+  <g transform="translate(483, 195)">
+    <rect x="0" y="0" width="415" height="105" rx="8" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+    <rect x="0" y="0" width="5" height="105" rx="2" fill="#7C3AED" />
+
+    <text x="20" y="24" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10.5" font-weight="700" fill="#7C3AED" letter-spacing="0.5">04 // COORDINATION &amp; LANGUAGES</text>
+    <text x="20" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16.5" font-weight="700" fill="#1A1A1A">Project Leadership &amp; Communication</text>
+    <text x="20" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#55504A">Student Leadership, Milestone Planning, Event Coordination</text>
+
+    <!-- Colorful Pills -->
+    <g transform="translate(20, 74)">
+      <rect x="0" y="0" width="70" height="18" rx="3" fill="#F3E8FF" />
+      <text x="35" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#7C3AED" text-anchor="middle">LEADERSHIP</text>
+
+      <rect x="76" y="0" width="80" height="18" rx="3" fill="#EFF6FF" />
+      <text x="116" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#1E40AF" text-anchor="middle">PLANNING</text>
+
+      <rect x="162" y="0" width="70" height="18" rx="3" fill="#ECFDF5" />
+      <text x="197" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#047857" text-anchor="middle">GERMAN (B1)</text>
+
+      <rect x="238" y="0" width="80" height="18" rx="3" fill="#FEF3C7" />
+      <text x="278" y="12.5" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="8.5" font-weight="600" fill="#D97706" text-anchor="middle">EN · BN · HI</text>
+    </g>
+  </g>
+</svg>
