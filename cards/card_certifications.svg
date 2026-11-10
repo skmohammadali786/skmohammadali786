@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 240" width="100%" height="100%">
+  <defs>
+    <style>
+      
+        * { box-sizing: border-box; }
+        
+        @keyframes riseUp {
+          0% { opacity: 0; transform: translateY(18px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes swingIn {
+          0% { opacity: 0; transform: translateY(35px) rotate(1.2deg); }
+          70% { transform: translateY(-3px) rotate(-0.4deg); }
+          100% { opacity: 1; transform: translateY(0) rotate(0); }
+        }
+
+        @keyframes pulseDot {
+          0%, 100% { opacity: 0.9; transform: scale(1); }
+          50% { opacity: 0.3; transform: scale(1.6); }
+        }
+
+        @keyframes arrowNudge {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(5px); }
+        }
+
+        @keyframes popSquare {
+          0% { opacity: 0; transform: scale(0.2); }
+          75% { transform: scale(1.15); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes growBar {
+          0% { transform: scaleY(0); }
+          100% { transform: scaleY(1); }
+        }
+
+        @keyframes popNumber {
+          0% { opacity: 0; transform: translateY(6px) scale(0.85); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .rise-up {
+          animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .pulse-beacon {
+          transform-origin: center;
+          animation: pulseDot 2.4s ease-in-out infinite;
+        }
+
+        .nudge-arrow {
+          animation: arrowNudge 2s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+            animation-delay: 0ms !important;
+            transform: none !important;
+            opacity: 1 !important;
+          }
+        }
+    
+    </style>
+    <linearGradient id="certGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#EA580C" />
+    </linearGradient>
+  </defs>
+
+  <g class="rise-up" style="animation-delay: 250ms; opacity: 0;">
+    <!-- Card Frame -->
+    <rect x="0" y="0" width="440" height="240" rx="10" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
+    <path d="M0 10 Q0 0 10 0 L430 0 Q440 0 440 10 L440 5 L0 5 Z" fill="url(#certGrad)" />
+
+    <!-- Header with Medal Icon -->
+    <g transform="translate(24, 22)">
+      <rect x="0" y="0" width="30" height="30" rx="6" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1" />
+      <text x="7" y="21" font-size="16">🏆</text>
+
+      <text x="40" y="14" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10" font-weight="700" fill="#D97706" letter-spacing="1">HONORS &amp; CERTIFICATIONS</text>
+      <text x="40" y="28" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="18" font-weight="700" fill="#1A1A1A">Recognitions &amp; Competitions</text>
+    </g>
+
+    <line x1="24" y1="64" x2="416" y2="64" stroke="#EFECE6" stroke-width="1" />
+
+    <!-- Certification 1: Samsung Solve for Tomorrow -->
+    <g transform="translate(24, 76)">
+      <rect x="0" y="0" width="392" height="66" rx="6" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+      <rect x="12" y="12" width="6" height="42" rx="3" fill="#0284C7" />
+      
+      <text x="28" y="26" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#1A1A1A">Samsung Solve for Tomorrow</text>
+      <text x="28" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5" fill="#55504A">National Innovation Challenge Participation Certificate</text>
+      <text x="28" y="58" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" fill="#0369A1" font-weight="600">INNOVATION · ASSISTIVE HARDWARE · IMPACT</text>
+    </g>
+
+    <!-- Certification 2: AURA Participation Certificate -->
+    <g transform="translate(24, 150)">
+      <rect x="0" y="0" width="392" height="66" rx="6" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+      <rect x="12" y="12" width="6" height="42" rx="3" fill="#D97706" />
+      
+      <text x="28" y="26" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="16" font-weight="700" fill="#1A1A1A">AURA Participation Certificate</text>
+      <text x="28" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5" fill="#55504A">Engineering &amp; Technical Prototyping Challenge</text>
+      <text x="28" y="58" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" fill="#D97706" font-weight="600">SYSTEMS PROTOTYPING · COLLABORATION</text>
+    </g>
+  </g>
+</svg>

@@ -1,7 +1,7 @@
 <div align="center">
 
-<!-- Hero Card: Name, Resume Highlights, Live Status & Animated Halftone Dotted Portrait -->
-<img src="./cards/hero.svg" width="100%" alt="SK Mohammad Ali - Hero Banner with Dotted Portrait" />
+<!-- Hero Card: Name, Resume Highlights, Live Status & High-Res Portrait Photo -->
+<img src="./cards/hero.svg" width="100%" alt="SK Mohammad Ali - Hero Banner" />
 
 <br/><br/>
 
@@ -11,6 +11,11 @@
   <a href="https://github.com/skmohammadali786"><img src="./cards/tile_software.svg" width="32.5%" alt="02 / Full-Stack Software - UConnect App" /></a>
   <a href="https://www.skmohammadali.in"><img src="./cards/tile_innovation.svg" width="32.5%" alt="03 / Systems & Project Coordination" /></a>
 </p>
+
+<!-- Core Engineering & Assistive Projects -->
+<img src="./cards/card_engineering_projects.svg" width="100%" alt="Featured Engineering Systems - Assistive Wheelchair & Building Systems TGA" />
+
+<br/><br/>
 
 <!-- Monthly Contributions Cadence & Streak Stats -->
 <img src="./cards/contributions_chart.svg" width="100%" alt="12-Month GitHub Contribution Frequency" />
@@ -26,6 +31,12 @@
 <p align="center">
   <a href="https://github.com/skmohammadali786/RailGuard"><img src="./cards/repo_railguard.svg" width="49%" alt="RailGuard - IoT Railway Track Safety" /></a>
   <a href="https://github.com/skmohammadali786"><img src="./cards/repo_uconnect.svg" width="49%" alt="UConnect App - Campus & Community Platform" /></a>
+</p>
+
+<!-- Colorful Graphical Education & Verified Certifications Cards -->
+<p align="center">
+  <img src="./cards/card_education.svg" width="49%" alt="Education - Aliah University & Al-Ameen Mission" />
+  <img src="./cards/card_certifications.svg" width="49%" alt="Certifications - Samsung Solve for Tomorrow & AURA" />
 </p>
 
 </div>
@@ -58,20 +69,11 @@
 
 <div align="center">
 
-### 📄 Verified Resume & Certifications
+### 📄 Verified Resume & Transmit
 
 [![Download Resume](https://img.shields.io/badge/Resume_PDF-Download_Official_Resume-DC2626?style=for-the-badge&logo=adobe-acrobat-reader&logoColor=white)](./resume.pdf)
 [![Portfolio](https://img.shields.io/badge/Portfolio-skmohammadali.in-1E40AF?style=for-the-badge&logo=google-chrome&logoColor=white)](https://www.skmohammadali.in/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-SK_Mohammad_Ali-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/skmohammadali)
 [![Email](https://img.shields.io/badge/Email-connect@skmohammadali.in-D97706?style=for-the-badge&logo=gmail&logoColor=white)](mailto:connect@skmohammadali.in)
-
-<br/>
-
-<sub>**Certifications**: AURA Participation Certificate · Samsung Solve for Tomorrow Participation Certificate</sub><br/>
-<sub>**Education**: B.Tech Electrical Engineering @ Aliah University (Aug 2024 - Present) · Al-Ameen Mission (2018 - 2024)</sub>
-
-<br/>
-
-<sub>Built with animated editorial SVG cards & photometric dotted portrait · Refreshed daily via GitHub Actions</sub>
 
 </div>

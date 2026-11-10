@@ -2,7 +2,8 @@
 """
 render_readme_cards.py
 Generates editorial animated SVG cards for SK Mohammad Ali's GitHub profile README.
-Includes custom animated halftone dotted portrait from user's photo.
+Includes real colorful graphic cards for Education, Certifications, and Core Projects,
+and embeds the uploaded portrait image directly inside the Hero card.
 Supports STATIC=1 mode for static snapshot previews.
 """
 
@@ -10,6 +11,7 @@ import os
 import sys
 import json
 import re
+import base64
 import urllib.request
 from datetime import datetime, timedelta
 from collections import defaultdict
@@ -17,14 +19,15 @@ from collections import defaultdict
 REPO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CARDS_DIR = os.path.join(REPO_DIR, "cards")
 DATA_DIR = os.path.join(REPO_DIR, "data")
+ASSETS_DIR = os.path.join(REPO_DIR, "assets")
 CONTRIBUTIONS_CACHE = os.path.join(DATA_DIR, "contributions.json")
-PORTRAIT_DOTS_FILE = os.path.join(DATA_DIR, "portrait_dots.json")
+PROFILE_IMAGE_PATH = os.path.join(ASSETS_DIR, "profile.jpg")
 
 USERNAME = "skmohammadali786"
 NAME = "SK Mohammad Ali"
 LOCATION = "Kalyanpur, Dwarbasini, West Bengal, India"
 COLLEGE = "Aliah University · B.Tech Electrical Engineering"
-BIO_LINE = "ESP32 Prototyping · Building Electrical Systems (TGA) · Full-Stack Systems Maker"
+BIO_LINE = "ESP32 Prototyping · Building Electrical Systems (TGA) · Practical Systems Maker"
 PORTFOLIO_URL = "https://www.skmohammadali.in"
 
 IS_STATIC = os.environ.get("STATIC", "0") == "1" or "--static" in sys.argv
@@ -42,6 +45,7 @@ COLOR_BLUE_LIGHT = "#3B82F6"
 COLOR_BLUE_PALE = "#DBEAFE"
 COLOR_RED = "#DC2626"
 COLOR_YELLOW = "#D97706"
+COLOR_EMERALD = "#059669"
 
 # Fonts
 SERIF_FAMILY = "'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif"
@@ -162,7 +166,7 @@ def get_base_css():
     if IS_STATIC:
         return f"""
         * {{ box-sizing: border-box; }}
-        .fade-in, .rise-up, .swing-in, .pop-sq, .grow-bar, .p-row {{ opacity: 1 !important; transform: none !important; }}
+        .fade-in, .rise-up, .swing-in, .pop-sq, .grow-bar {{ opacity: 1 !important; transform: none !important; }}
         """
     return f"""
         * {{ box-sizing: border-box; }}
@@ -176,11 +180,6 @@ def get_base_css():
           0% {{ opacity: 0; transform: translateY(35px) rotate(1.2deg); }}
           70% {{ transform: translateY(-3px) rotate(-0.4deg); }}
           100% {{ opacity: 1; transform: translateY(0) rotate(0); }}
-        }}
-
-        @keyframes printRow {{
-          0% {{ opacity: 0; transform: translateY(-3px); }}
-          100% {{ opacity: 1; transform: translateY(0); }}
         }}
 
         @keyframes pulseDot {{
@@ -235,53 +234,21 @@ def get_base_css():
     """
 
 
-def render_dotted_portrait():
-    """Renders the user's halftone dotted portrait SVG elements with row-by-row print animation."""
-    if not os.path.exists(PORTRAIT_DOTS_FILE):
-        return ""
-
-    with open(PORTRAIT_DOTS_FILE, "r", encoding="utf-8") as f:
-        dots_data = json.load(f)
-
-    cols = dots_data.get("cols", 46)
-    rows_count = dots_data.get("rows", 54)
-    grid = dots_data.get("data", [])
-
-    box_x = 612
-    box_y = 65
-    box_w = 285
-    box_h = 285
-
-    step_x = box_w / cols
-    step_y = box_h / rows_count
-
-    rows_svg = []
-    for r_idx, row_dots in enumerate(grid):
-        if not row_dots:
-            continue
-        delay = 0 if IS_STATIC else 150 + (r_idx * 18)
-        anim_attr = f'style="animation: printRow 0.35s ease-out {delay}ms forwards; opacity: {"1" if IS_STATIC else "0"};"'
-        
-        circles = []
-        cy = round(box_y + (r_idx * step_y), 1)
-        for dot in row_dots:
-            cx = round(box_x + (dot["c"] * step_x), 1)
-            rad = dot["r"]
-            col = dot.get("col", COLOR_INK)
-            circles.append(f'<circle cx="{cx}" cy="{cy}" r="{rad}" fill="{col}" />')
-
-        row_content = "".join(circles)
-        rows_svg.append(f'<g class="p-row" {anim_attr}>{row_content}</g>')
-
-    return "\n    ".join(rows_svg)
+def get_profile_image_base64():
+    """Reads profile.jpg and converts to base64 data URI."""
+    if os.path.exists(PROFILE_IMAGE_PATH):
+        with open(PROFILE_IMAGE_PATH, "rb") as f:
+            encoded = base64.b64encode(f.read()).decode("ascii")
+            return f"data:image/jpeg;base64,{encoded}"
+    return ""
 
 
 def render_hero_card():
-    """Renders the top Hero SVG card with fully visible name, detailed resume info and dotted portrait."""
+    """Renders the top Hero SVG card with real uploaded photograph and full resume highlights."""
     width = 940
     height = 380
 
-    portrait_svg = render_dotted_portrait()
+    image_data_uri = get_profile_image_base64()
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
   <defs>
@@ -299,6 +266,9 @@ def render_hero_card():
     <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="0.75" fill="#E6DFD2" opacity="0.7" />
     </pattern>
+    <clipPath id="avatarRoundedClip">
+      <rect x="600" y="44" width="295" height="295" rx="14" />
+    </clipPath>
   </defs>
 
   <!-- Paper Card Base -->
@@ -307,18 +277,18 @@ def render_hero_card():
   <rect x="16" y="16" width="{width - 32}" height="{height - 32}" rx="6" fill="none" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" stroke-dasharray="4 4" />
 
   <!-- Corner Blueprint Marks -->
-  <text x="24" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">+ REF.01 // RESUME</text>
+  <text x="24" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">+ REF.01 // PROFILE</text>
   <text x="{width - 95}" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">EST. 2024 +</text>
 
   <!-- Left Column: Identity & Comprehensive Resume Details -->
   <g class="rise-up" style="animation-delay: 100ms; opacity: {'1' if IS_STATIC else '0'};">
     <!-- Top Metadata Badge -->
-    <rect x="42" y="44" width="275" height="24" rx="12" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <rect x="42" y="44" width="280" height="24" rx="12" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
     <circle cx="56" cy="56" r="4" fill="#10B981" />
     <circle cx="56" cy="56" r="4" fill="#10B981" class="pulse-beacon" />
     <text x="68" y="60" font-family="{MONO_FAMILY}" font-size="10" font-weight="600" fill="{COLOR_INK_MUTED}" letter-spacing="0.5">ALIAH UNIV // EE · KOLKATA, IN</text>
     
-    <!-- Primary Heading: Name (Clearly spaced with ample margin so Ali is 100% visible) -->
+    <!-- Primary Heading: Name (Ample margin, completely visible) -->
     <text x="42" y="112" font-family="{SERIF_FAMILY}" font-size="40" font-weight="700" fill="url(#heroInkShine)" letter-spacing="-0.3">
       {NAME}
     </text>
@@ -362,18 +332,28 @@ def render_hero_card():
   <!-- Divider Line -->
   <line x1="575" y1="45" x2="575" y2="345" stroke="{COLOR_BORDER}" stroke-width="1" stroke-dasharray="3 3" />
 
-  <!-- Right Column: Animated Halftone Dotted Portrait -->
-  <g>
-    <!-- Portrait Outer Box -->
-    <rect x="595" y="44" width="315" height="312" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-    <rect x="595" y="44" width="200" height="22" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" />
-    <text x="605" y="59" font-family="{MONO_FAMILY}" font-size="9.5" font-weight="600" fill="{COLOR_INK_MUTED}">PORTRAIT // DOTTED_SCAN</text>
+  <!-- Right Column: Real Uploaded Photograph in Elegant Frame -->
+  <g class="rise-up" style="animation-delay: 200ms; opacity: {'1' if IS_STATIC else '0'};">
+    <!-- Frame Backing & Shadow -->
+    <rect x="596" y="40" width="303" height="303" rx="16" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
+    
+    <!-- Real Uploaded Profile Photo -->
+    <image x="600" y="44" width="295" height="295" href="{image_data_uri}" preserveAspectRatio="xMidYMid slice" clip-path="url(#avatarRoundedClip)" />
+    
+    <!-- Sleek Overlay Border -->
+    <rect x="600" y="44" width="295" height="295" rx="14" fill="none" stroke="{COLOR_BORDER}" stroke-width="2" />
 
-    <!-- Dotted Portrait Circles -->
-    {portrait_svg}
+    <!-- Top Label Badge on Photo -->
+    <rect x="612" y="56" width="160" height="22" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" opacity="0.92" />
+    <text x="620" y="71" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_BLUE}">SK MOHAMMAD ALI</text>
 
-    <!-- Bottom Caption -->
-    <text x="605" y="348" font-family="{MONO_FAMILY}" font-size="8.5" fill="{COLOR_INK_FAINT}">PHOTOMETRIC DOT-MATRIX // SK MOHAMMAD ALI</text>
+    <!-- Corner Live Pulse Beacon -->
+    <circle cx="880" cy="56" r="4.5" fill="#10B981" />
+    <circle cx="880" cy="56" r="4.5" fill="#10B981" class="pulse-beacon" />
+
+    <!-- Bottom Tag -->
+    <rect x="612" y="308" width="180" height="20" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" opacity="0.9" />
+    <text x="620" y="322" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_INK}">ENGINEERING PORTFOLIO</text>
   </g>
 </svg>"""
     return svg
@@ -402,41 +382,245 @@ def render_tile_card(tile_id, category, title, metric, description, accent_color
   </defs>
 
   <g style="{anim_style}">
-    <!-- Background Card -->
     <rect x="0" y="0" width="{width}" height="{height}" rx="10" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
-    
-    <!-- Top Accent Stripe -->
     <path d="M0 10 Q0 0 10 0 L{width - 10} 0 Q{width} 0 {width} 10 L{width} 6 L0 6 Z" fill="{accent_color}" />
 
-    <!-- Corner Beacon -->
     <circle cx="{width - 24}" cy="28" r="4" fill="{accent_color}" />
     <circle cx="{width - 24}" cy="28" r="4" fill="{accent_color}" class="pulse-beacon" />
 
-    <!-- Category Header -->
     <text x="24" y="34" font-family="{MONO_FAMILY}" font-size="11" font-weight="700" fill="{accent_color}" letter-spacing="1">
       {category}
     </text>
 
-    <!-- Main Title in Serif -->
     <text x="24" y="78" font-family="{SERIF_FAMILY}" font-size="34" font-weight="700" fill="{COLOR_INK}" letter-spacing="-0.3">
       {title}
     </text>
 
-    <!-- Big Metric Number -->
     <text x="24" y="116" font-family="{SERIF_FAMILY}" font-size="22" font-style="italic" fill="url(#tileShine_{tile_id})">
       {metric}
     </text>
 
-    <!-- Description / Tech Subtitle -->
     <text x="24" y="146" font-family="{SANS_FAMILY}" font-size="12.5" fill="{COLOR_INK_MUTED}">
       {description}
     </text>
 
-    <!-- Link / Action Arrow Footer -->
     <line x1="24" y1="162" x2="{width - 24}" y2="162" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" />
     <text x="24" y="178" font-family="{MONO_FAMILY}" font-size="10.5" fill="{COLOR_INK_FAINT}">EXPLORE ARCHIVE</text>
     <g transform="translate({width - 38}, 170)" class="nudge-arrow">
       <text x="0" y="8" font-family="{MONO_FAMILY}" font-size="14" font-weight="bold" fill="{accent_color}">→</text>
+    </g>
+  </g>
+</svg>"""
+    return svg
+
+
+def render_education_card():
+    """Renders a colorful graphic card for Academic Education with timeline and badges."""
+    width = 440
+    height = 240
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {get_base_css()}
+    </style>
+    <linearGradient id="eduGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="{COLOR_BLUE}" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+  </defs>
+
+  <g class="rise-up" style="animation-delay: 200ms; opacity: {'1' if IS_STATIC else '0'};">
+    <!-- Card Frame -->
+    <rect x="0" y="0" width="{width}" height="{height}" rx="10" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
+    <path d="M0 10 Q0 0 10 0 L{width - 10} 0 Q{width} 0 {width} 10 L{width} 5 L0 5 Z" fill="url(#eduGrad)" />
+
+    <!-- Header with Graduation Icon -->
+    <g transform="translate(24, 22)">
+      <!-- Graduation Icon Badge -->
+      <rect x="0" y="0" width="30" height="30" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1" />
+      <text x="7" y="21" font-size="16">🎓</text>
+
+      <text x="40" y="14" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_BLUE}" letter-spacing="1">ACADEMIC FOUNDATION</text>
+      <text x="40" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">Formal Engineering Education</text>
+    </g>
+
+    <line x1="24" y1="64" x2="{width - 24}" y2="64" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" />
+
+    <!-- Timeline Entry 1: Aliah University -->
+    <g transform="translate(24, 78)">
+      <!-- Node Dot -->
+      <circle cx="6" cy="6" r="6" fill="{COLOR_BLUE}" />
+      <circle cx="6" cy="6" r="3" fill="#FFFFFF" />
+      <line x1="6" y1="14" x2="6" y2="70" stroke="{COLOR_BLUE_PALE}" stroke-width="2" />
+
+      <!-- Text Details -->
+      <text x="24" y="8" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_BLUE}">AUG 2024 – PRESENT</text>
+      <text x="24" y="25" font-family="{SERIF_FAMILY}" font-size="17" font-weight="700" fill="{COLOR_INK}">B.Tech, Electrical Engineering</text>
+      <text x="24" y="42" font-family="{SANS_FAMILY}" font-size="12" font-weight="600" fill="{COLOR_INK_MUTED}">Aliah University, Kolkata</text>
+      <text x="24" y="58" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_FAINT}">Embedded Control · Motor Drivers · TGA Systems</text>
+    </g>
+
+    <!-- Timeline Entry 2: Al-Ameen Mission -->
+    <g transform="translate(24, 156)">
+      <!-- Node Dot -->
+      <circle cx="6" cy="6" r="6" fill="{COLOR_EMERALD}" />
+      <circle cx="6" cy="6" r="3" fill="#FFFFFF" />
+
+      <!-- Text Details -->
+      <text x="24" y="8" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_EMERALD}">2018 – 2024</text>
+      <text x="24" y="25" font-family="{SERIF_FAMILY}" font-size="17" font-weight="700" fill="{COLOR_INK}">Intermediate Science &amp; High School</text>
+      <text x="24" y="42" font-family="{SANS_FAMILY}" font-size="12" font-weight="600" fill="{COLOR_INK_MUTED}">Al-Ameen Mission</text>
+      <text x="24" y="58" font-family="{SANS_FAMILY}" font-size="11" fill="{COLOR_INK_FAINT}">Mathematics · Physics · Chemistry · Foundation</text>
+    </g>
+
+    <!-- Status Badge -->
+    <rect x="{width - 130}" y="200" width="106" height="22" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
+    <circle cx="{width - 120}" cy="211" r="3" fill="#10B981" />
+    <text x="{width - 110}" y="215" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="#047857">IN PROGRESS</text>
+  </g>
+</svg>"""
+    return svg
+
+
+def render_certifications_card():
+    """Renders a colorful graphic card for Verified Certifications & Honors."""
+    width = 440
+    height = 240
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {get_base_css()}
+    </style>
+    <linearGradient id="certGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="{COLOR_YELLOW}" />
+      <stop offset="100%" stop-color="#EA580C" />
+    </linearGradient>
+  </defs>
+
+  <g class="rise-up" style="animation-delay: 250ms; opacity: {'1' if IS_STATIC else '0'};">
+    <!-- Card Frame -->
+    <rect x="0" y="0" width="{width}" height="{height}" rx="10" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
+    <path d="M0 10 Q0 0 10 0 L{width - 10} 0 Q{width} 0 {width} 10 L{width} 5 L0 5 Z" fill="url(#certGrad)" />
+
+    <!-- Header with Medal Icon -->
+    <g transform="translate(24, 22)">
+      <rect x="0" y="0" width="30" height="30" rx="6" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1" />
+      <text x="7" y="21" font-size="16">🏆</text>
+
+      <text x="40" y="14" font-family="{MONO_FAMILY}" font-size="10" font-weight="700" fill="{COLOR_YELLOW}" letter-spacing="1">HONORS &amp; CERTIFICATIONS</text>
+      <text x="40" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">Recognitions &amp; Competitions</text>
+    </g>
+
+    <line x1="24" y1="64" x2="{width - 24}" y2="64" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" />
+
+    <!-- Certification 1: Samsung Solve for Tomorrow -->
+    <g transform="translate(24, 76)">
+      <rect x="0" y="0" width="{width - 48}" height="66" rx="6" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+      <rect x="12" y="12" width="6" height="42" rx="3" fill="#0284C7" />
+      
+      <text x="28" y="26" font-family="{SERIF_FAMILY}" font-size="16" font-weight="700" fill="{COLOR_INK}">Samsung Solve for Tomorrow</text>
+      <text x="28" y="44" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">National Innovation Challenge Participation Certificate</text>
+      <text x="28" y="58" font-family="{MONO_FAMILY}" font-size="9.5" fill="#0369A1" font-weight="600">INNOVATION · ASSISTIVE HARDWARE · IMPACT</text>
+    </g>
+
+    <!-- Certification 2: AURA Participation Certificate -->
+    <g transform="translate(24, 150)">
+      <rect x="0" y="0" width="{width - 48}" height="66" rx="6" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+      <rect x="12" y="12" width="6" height="42" rx="3" fill="{COLOR_YELLOW}" />
+      
+      <text x="28" y="26" font-family="{SERIF_FAMILY}" font-size="16" font-weight="700" fill="{COLOR_INK}">AURA Participation Certificate</text>
+      <text x="28" y="44" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">Engineering &amp; Technical Prototyping Challenge</text>
+      <text x="28" y="58" font-family="{MONO_FAMILY}" font-size="9.5" fill="{COLOR_YELLOW}" font-weight="600">SYSTEMS PROTOTYPING · COLLABORATION</text>
+    </g>
+  </g>
+</svg>"""
+    return svg
+
+
+def render_engineering_projects_card():
+    """Renders a colorful full-width card highlighting Voice Wheelchair & Building Systems TGA."""
+    width = 900
+    height = 210
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {get_base_css()}
+    </style>
+  </defs>
+
+  <g class="rise-up" style="animation-delay: 150ms; opacity: {'1' if IS_STATIC else '0'};">
+    <rect x="0" y="0" width="{width}" height="{height}" rx="12" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
+
+    <!-- Header -->
+    <g transform="translate(36, 32)">
+      <text x="0" y="0" font-family="{MONO_FAMILY}" font-size="11" font-weight="700" fill="{COLOR_BLUE}" letter-spacing="1">
+        TECHNICAL EXPERTISE // PROTOTYPING &amp; BUILDING SYSTEMS
+      </text>
+      <text x="0" y="22" font-family="{SERIF_FAMILY}" font-size="22" font-weight="700" fill="{COLOR_INK}">
+        Core Assistive &amp; Electrical Engineering Projects
+      </text>
+    </g>
+
+    <!-- Left Half: Voice-Controlled Wheelchair Prototype -->
+    <g transform="translate(36, 75)">
+      <rect x="0" y="0" width="395" height="110" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+      <rect x="14" y="14" width="4" height="82" rx="2" fill="{COLOR_BLUE}" />
+
+      <text x="28" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">
+        Voice-Controlled Wheelchair Prototype
+      </text>
+      <text x="28" y="48" font-family="{SANS_FAMILY}" font-size="12" fill="{COLOR_INK_MUTED}">
+        Assistive mobility device powered by an ESP32 microcontroller.
+      </text>
+      <text x="28" y="66" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">
+        Engineered logic-power isolation and motor-driver interfacing.
+      </text>
+
+      <!-- Tags -->
+      <g transform="translate(28, 80)">
+        <rect x="0" y="0" width="55" height="18" rx="3" fill="#DBEAFE" />
+        <text x="27" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">ESP32</text>
+
+        <rect x="62" y="0" width="85" height="18" rx="3" fill="#EFF6FF" />
+        <text x="104" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_INK}" text-anchor="middle">MOTOR-DRIVER</text>
+
+        <rect x="154" y="0" width="95" height="18" rx="3" fill="#ECFDF5" />
+        <text x="201" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="#047857" text-anchor="middle">ASSISTIVE TECH</text>
+      </g>
+    </g>
+
+    <!-- Vertical Divider -->
+    <line x1="450" y1="75" x2="450" y2="185" stroke="{COLOR_BORDER}" stroke-width="1" stroke-dasharray="3 3" />
+
+    <!-- Right Half: Building Electrical Systems (TGA) -->
+    <g transform="translate(468, 75)">
+      <rect x="0" y="0" width="395" height="110" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+      <rect x="14" y="14" width="4" height="82" rx="2" fill="{COLOR_YELLOW}" />
+
+      <text x="28" y="28" font-family="{SERIF_FAMILY}" font-size="18" font-weight="700" fill="{COLOR_INK}">
+        Building Electrical Systems (TGA)
+      </text>
+      <text x="28" y="48" font-family="{SANS_FAMILY}" font-size="12" fill="{COLOR_INK_MUTED}">
+        Technical building equipment planning &amp; electrical consulting.
+      </text>
+      <text x="28" y="66" font-family="{SANS_FAMILY}" font-size="11.5" fill="{COLOR_INK_MUTED}">
+        System coordination, AutoCAD electrical schematics &amp; power.
+      </text>
+
+      <!-- Tags -->
+      <g transform="translate(28, 80)">
+        <rect x="0" y="0" width="80" height="18" rx="3" fill="#FEF3C7" />
+        <text x="40" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_YELLOW}" text-anchor="middle">TGA SYSTEMS</text>
+
+        <rect x="88" y="0" width="65" height="18" rx="3" fill="#EFF6FF" />
+        <text x="120" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_BLUE}" text-anchor="middle">AUTOCAD</text>
+
+        <rect x="160" y="0" width="95" height="18" rx="3" fill="#F3F4F6" />
+        <text x="207" y="13" font-family="{MONO_FAMILY}" font-size="9" font-weight="600" fill="{COLOR_INK}" text-anchor="middle">POWER PLANNING</text>
+      </g>
     </g>
   </g>
 </svg>"""
@@ -697,14 +881,13 @@ def main():
     data = fetch_contributions(USERNAME)
     print(f"[*] Total contributions: {data.get('total_contributions')}")
 
-    # 1. Render Hero Card with Name & Dotted Portrait
+    # 1. Hero Card (Embeds actual photo)
     hero_svg = render_hero_card()
     with open(os.path.join(CARDS_DIR, "hero.svg"), "w", encoding="utf-8") as f:
         f.write(hero_svg)
-    print("[+] Rendered cards/hero.svg")
+    print("[+] Rendered cards/hero.svg (with uploaded photo)")
 
-    # 2. Render Three World Tiles
-    # Tile 1: HARDWARE (Cobalt Blue)
+    # 2. Three World Tiles
     t1_svg = render_tile_card(
         tile_id="hardware",
         category="01 / HARDWARE &amp; IOT",
@@ -718,7 +901,6 @@ def main():
         f.write(t1_svg)
     print("[+] Rendered cards/tile_hardware.svg")
 
-    # Tile 2: SOFTWARE (Vermillion Red) - UConnect App
     t2_svg = render_tile_card(
         tile_id="software",
         category="02 / FULL-STACK &amp; APPS",
@@ -732,7 +914,6 @@ def main():
         f.write(t2_svg)
     print("[+] Rendered cards/tile_software.svg")
 
-    # Tile 3: INNOVATION & SYSTEMS (Goldenrod Yellow)
     t3_svg = render_tile_card(
         tile_id="innovation",
         category="03 / SYSTEMS &amp; TGA",
@@ -746,19 +927,37 @@ def main():
         f.write(t3_svg)
     print("[+] Rendered cards/tile_innovation.svg")
 
-    # 3. Render Monthly Contributions Chart
+    # 3. Monthly Contributions Chart
     chart_svg = render_contributions_chart(data)
     with open(os.path.join(CARDS_DIR, "contributions_chart.svg"), "w", encoding="utf-8") as f:
         f.write(chart_svg)
     print("[+] Rendered cards/contributions_chart.svg")
 
-    # 4. Render Blue Contribution Graph
+    # 4. 52-Week Blue Contribution Heatmap
     graph_svg = render_contribution_graph(data)
     with open(os.path.join(CARDS_DIR, "contribution_graph.svg"), "w", encoding="utf-8") as f:
         f.write(graph_svg)
     print("[+] Rendered cards/contribution_graph.svg")
 
-    # 5. Render Featured Repos (RailGuard & UConnect App)
+    # 5. Core Engineering Projects Card (Voice Wheelchair + TGA Systems)
+    projects_svg = render_engineering_projects_card()
+    with open(os.path.join(CARDS_DIR, "card_engineering_projects.svg"), "w", encoding="utf-8") as f:
+        f.write(projects_svg)
+    print("[+] Rendered cards/card_engineering_projects.svg")
+
+    # 6. Education Card
+    edu_svg = render_education_card()
+    with open(os.path.join(CARDS_DIR, "card_education.svg"), "w", encoding="utf-8") as f:
+        f.write(edu_svg)
+    print("[+] Rendered cards/card_education.svg")
+
+    # 7. Certifications Card
+    cert_svg = render_certifications_card()
+    with open(os.path.join(CARDS_DIR, "card_certifications.svg"), "w", encoding="utf-8") as f:
+        f.write(cert_svg)
+    print("[+] Rendered cards/card_certifications.svg")
+
+    # 8. Featured Repos (RailGuard & UConnect App)
     repo1_svg = render_repo_card(
         name="RailGuard",
         role_badge="IOT &amp; EMBEDDED SYSTEM",
