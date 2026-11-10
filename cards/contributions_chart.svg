@@ -16,8 +16,8 @@
         }
 
         @keyframes printRow {
-          0% { opacity: 0; transform: translateX(-4px); }
-          100% { opacity: 1; transform: translateX(0); }
+          0% { opacity: 0; transform: translateY(-3px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseDot {
@@ -73,10 +73,8 @@
     </style>
   </defs>
 
-  <!-- Base Paper -->
   <rect x="0" y="0" width="900" height="250" rx="12" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
 
-  <!-- Section Header -->
   <g transform="translate(42, 38)">
     <text x="0" y="0" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" font-weight="700" fill="#1E40AF" letter-spacing="1">
       ACTIVITY // MONTHLY CONTRIBUTIONS CADENCE
@@ -86,9 +84,7 @@
     </text>
   </g>
 
-  <!-- Left: Monthly Bars -->
   <g>
-    <!-- Baseline -->
     <line x1="40" y1="175" x2="495" y2="175" stroke="#E5DEC9" stroke-width="1" />
     
         <g>
@@ -182,36 +178,29 @@
         
   </g>
 
-  <!-- Vertical Divider -->
   <line x1="530" y1="35" x2="530" y2="215" stroke="#E5DEC9" stroke-width="1" stroke-dasharray="3 3" />
 
-  <!-- Right: Stat Blocks -->
   <g transform="translate(560, 42)">
-    <!-- Stat 1: Total Contributions -->
     <g transform="translate(0, 0)">
       <text x="0" y="12" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10" font-weight="600" fill="#8A847C">ANNUAL CONTRIBUTIONS</text>
       <text x="0" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="#1E40AF">1,297</text>
     </g>
 
-    <!-- Stat 2: Active Days -->
     <g transform="translate(160, 0)">
       <text x="0" y="12" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10" font-weight="600" fill="#8A847C">ACTIVE COMMIT DAYS</text>
       <text x="0" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="#1A1A1A">108 <tspan font-size="16" font-style="italic">days</tspan></text>
     </g>
 
-    <!-- Stat 3: Longest Streak -->
     <g transform="translate(0, 75)">
       <text x="0" y="12" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10" font-weight="600" fill="#8A847C">LONGEST STREAK</text>
       <text x="0" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="#1A1A1A">16 <tspan font-size="16" font-style="italic">days</tspan></text>
     </g>
 
-    <!-- Stat 4: Peak Output Day -->
     <g transform="translate(160, 75)">
       <text x="0" y="12" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10" font-weight="600" fill="#8A847C">BUSIEST 24H WINDOW</text>
       <text x="0" y="44" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="#D97706">58 <tspan font-size="16" font-style="italic">commits</tspan></text>
     </g>
 
-    <!-- Footer Timestamp -->
     <rect x="0" y="132" width="295" height="26" rx="4" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
     <circle cx="12" cy="145" r="3.5" fill="#10B981" />
     <text x="24" y="149" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" fill="#55504A">AUTOMATED GITHUB CRON REFRESH // DAILY</text>

@@ -2,7 +2,7 @@
 """
 render_readme_cards.py
 Generates editorial animated SVG cards for SK Mohammad Ali's GitHub profile README.
-Inspired by Avi Vashishta's animated SVG cards architecture.
+Includes custom animated halftone dotted portrait from user's photo.
 Supports STATIC=1 mode for static snapshot previews.
 """
 
@@ -18,12 +18,13 @@ REPO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CARDS_DIR = os.path.join(REPO_DIR, "cards")
 DATA_DIR = os.path.join(REPO_DIR, "data")
 CONTRIBUTIONS_CACHE = os.path.join(DATA_DIR, "contributions.json")
+PORTRAIT_DOTS_FILE = os.path.join(DATA_DIR, "portrait_dots.json")
 
 USERNAME = "skmohammadali786"
 NAME = "SK Mohammad Ali"
-LOCATION = "Kolkata, West Bengal, India"
-COLLEGE = "Aliah University · Electrical Engineering"
-BIO_LINE = "Electrical Engineering Student · Hardware & Software Systems Maker"
+LOCATION = "Kalyanpur, Dwarbasini, West Bengal, India"
+COLLEGE = "Aliah University · B.Tech Electrical Engineering"
+BIO_LINE = "ESP32 Prototyping · Building Electrical Systems (TGA) · Full-Stack Systems Maker"
 PORTFOLIO_URL = "https://www.skmohammadali.in"
 
 IS_STATIC = os.environ.get("STATIC", "0") == "1" or "--static" in sys.argv
@@ -66,7 +67,6 @@ def fetch_contributions(username=USERNAME):
                 return json.load(f)
         return generate_mock_contributions()
 
-    # Parse days and levels
     days_data = re.findall(r'data-date="([^"]+)"[^>]*id="([^"]+)"[^>]*data-level="([0-9])"', html)
     tooltips = dict(re.findall(r'for="([^"]+)"[^>]*>([^<]+)</tool-tip>', html))
 
@@ -84,13 +84,11 @@ def fetch_contributions(username=USERNAME):
     total = sum(x["count"] for x in calendar)
     busiest = max(calendar, key=lambda x: x["count"]) if calendar else {"date": "", "count": 0}
 
-    # Streaks
     current_streak = 0
     longest_streak = 0
     temp_streak = 0
     today_str = datetime.now().strftime("%Y-%m-%d")
 
-    # Filter active days up to today
     for day in calendar:
         if day["count"] > 0:
             temp_streak += 1
@@ -99,7 +97,6 @@ def fetch_contributions(username=USERNAME):
         else:
             temp_streak = 0
 
-    # Calculate current streak backwards
     for day in reversed(calendar):
         if day["date"] > today_str:
             continue
@@ -108,7 +105,6 @@ def fetch_contributions(username=USERNAME):
         elif current_streak > 0:
             break
 
-    # Group by month
     monthly = defaultdict(int)
     for day in calendar:
         m_key = day["date"][:7]
@@ -135,7 +131,6 @@ def fetch_contributions(username=USERNAME):
 
 
 def generate_mock_contributions():
-    """Generates realistic fallback data if offline."""
     now = datetime.now()
     calendar = []
     monthly = defaultdict(int)
@@ -167,7 +162,7 @@ def get_base_css():
     if IS_STATIC:
         return f"""
         * {{ box-sizing: border-box; }}
-        .fade-in, .rise-up, .swing-in, .pop-sq, .grow-bar {{ opacity: 1 !important; transform: none !important; }}
+        .fade-in, .rise-up, .swing-in, .pop-sq, .grow-bar, .p-row {{ opacity: 1 !important; transform: none !important; }}
         """
     return f"""
         * {{ box-sizing: border-box; }}
@@ -184,8 +179,8 @@ def get_base_css():
         }}
 
         @keyframes printRow {{
-          0% {{ opacity: 0; transform: translateX(-4px); }}
-          100% {{ opacity: 1; transform: translateX(0); }}
+          0% {{ opacity: 0; transform: translateY(-3px); }}
+          100% {{ opacity: 1; transform: translateY(0); }}
         }}
 
         @keyframes pulseDot {{
@@ -240,40 +235,53 @@ def get_base_css():
     """
 
 
+def render_dotted_portrait():
+    """Renders the user's halftone dotted portrait SVG elements with row-by-row print animation."""
+    if not os.path.exists(PORTRAIT_DOTS_FILE):
+        return ""
+
+    with open(PORTRAIT_DOTS_FILE, "r", encoding="utf-8") as f:
+        dots_data = json.load(f)
+
+    cols = dots_data.get("cols", 46)
+    rows_count = dots_data.get("rows", 54)
+    grid = dots_data.get("data", [])
+
+    box_x = 612
+    box_y = 65
+    box_w = 285
+    box_h = 285
+
+    step_x = box_w / cols
+    step_y = box_h / rows_count
+
+    rows_svg = []
+    for r_idx, row_dots in enumerate(grid):
+        if not row_dots:
+            continue
+        delay = 0 if IS_STATIC else 150 + (r_idx * 18)
+        anim_attr = f'style="animation: printRow 0.35s ease-out {delay}ms forwards; opacity: {"1" if IS_STATIC else "0"};"'
+        
+        circles = []
+        cy = round(box_y + (r_idx * step_y), 1)
+        for dot in row_dots:
+            cx = round(box_x + (dot["c"] * step_x), 1)
+            rad = dot["r"]
+            col = dot.get("col", COLOR_INK)
+            circles.append(f'<circle cx="{cx}" cy="{cy}" r="{rad}" fill="{col}" />')
+
+        row_content = "".join(circles)
+        rows_svg.append(f'<g class="p-row" {anim_attr}>{row_content}</g>')
+
+    return "\n    ".join(rows_svg)
+
+
 def render_hero_card():
-    """Renders the top Hero SVG card with editorial typography, ASCII IC circuit and SMIL shine."""
-    width = 900
-    height = 360
+    """Renders the top Hero SVG card with fully visible name, detailed resume info and dotted portrait."""
+    width = 940
+    height = 380
 
-    # Stylized Hardware IC & Embedded Architecture ASCII
-    ascii_rows = [
-        "+-----------------------------------------+",
-        "|  [ALIAH-EE]   ALIAH UNIVERSITY // KOLKATA|",
-        "|  +====================================+ |",
-        "|  |   SK-MOHAMMAD-ALI // ARCHITECTURE  | |",
-        "|  |  .------.       .-----.    .------.| |",
-        "|  |  |SENSOR|------>| MCU |<-->| RF/4G || |",
-        "|  |  '------'       '-----'    '------'| |",
-        "|  |     |         [SYSTEMS]        |   | |",
-        "|  |   =====     I2C  SPI  PWM    ===== | |",
-        "|  |    GND      SDA  CLK  IO5     3V3  | |",
-        "|  +====================================+ |",
-        "|  PIN: 01 02 03 04 05 06 07 08 09 10 11  |",
-        "|  STATUS: EMBEDDED + FULLSTACK ONLINE ●  |",
-        "+-----------------------------------------+"
-    ]
-
-    ascii_svg_elements = []
-    base_y = 120
-    for idx, row in enumerate(ascii_rows):
-        delay = 0 if IS_STATIC else 250 + (idx * 40)
-        anim_attr = f'style="animation: printRow 0.4s ease-out {delay}ms forwards; opacity: {"1" if IS_STATIC else "0"};"'
-        # escape row
-        escaped_row = row.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-        ascii_svg_elements.append(
-            f'<text x="515" y="{base_y + (idx * 16)}" font-family="{MONO_FAMILY}" font-size="11" fill="{COLOR_INK}" letter-spacing="0.5" {anim_attr}>{escaped_row}</text>'
-        )
-    ascii_content = "\n    ".join(ascii_svg_elements)
+    portrait_svg = render_dotted_portrait()
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
   <defs>
@@ -299,54 +307,73 @@ def render_hero_card():
   <rect x="16" y="16" width="{width - 32}" height="{height - 32}" rx="6" fill="none" stroke="{COLOR_BORDER_LIGHT}" stroke-width="1" stroke-dasharray="4 4" />
 
   <!-- Corner Blueprint Marks -->
-  <text x="24" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">+ REF.01</text>
-  <text x="{width - 70}" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">EST. 2024 +</text>
+  <text x="24" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">+ REF.01 // RESUME</text>
+  <text x="{width - 95}" y="32" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">EST. 2024 +</text>
 
-  <!-- Left Column: Identity & Bio -->
+  <!-- Left Column: Identity & Comprehensive Resume Details -->
   <g class="rise-up" style="animation-delay: 100ms; opacity: {'1' if IS_STATIC else '0'};">
     <!-- Top Metadata Badge -->
-    <rect x="42" y="52" width="250" height="24" rx="12" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-    <circle cx="56" cy="64" r="4" fill="#10B981" />
-    <circle cx="56" cy="64" r="4" fill="#10B981" class="pulse-beacon" />
-    <text x="68" y="68" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="600" fill="{COLOR_INK_MUTED}" letter-spacing="0.5">ALIAH UNIV // KOLKATA, IN</text>
+    <rect x="42" y="44" width="275" height="24" rx="12" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <circle cx="56" cy="56" r="4" fill="#10B981" />
+    <circle cx="56" cy="56" r="4" fill="#10B981" class="pulse-beacon" />
+    <text x="68" y="60" font-family="{MONO_FAMILY}" font-size="10" font-weight="600" fill="{COLOR_INK_MUTED}" letter-spacing="0.5">ALIAH UNIV // EE · KOLKATA, IN</text>
     
-    <!-- Primary Heading: Name -->
-    <text x="42" y="132" font-family="{SERIF_FAMILY}" font-size="52" font-weight="700" fill="url(#heroInkShine)" letter-spacing="-0.5">
+    <!-- Primary Heading: Name (Clearly spaced with ample margin so Ali is 100% visible) -->
+    <text x="42" y="112" font-family="{SERIF_FAMILY}" font-size="40" font-weight="700" fill="url(#heroInkShine)" letter-spacing="-0.3">
       {NAME}
     </text>
 
-    <!-- Subtitle: Role & Specialty -->
-    <text x="43" y="168" font-family="{SERIF_FAMILY}" font-size="21" font-style="italic" fill="{COLOR_BLUE}" letter-spacing="0.2">
-      Electrical Engineering &amp; Practical Systems Maker
+    <!-- Subtitle: Role & Core Specialization -->
+    <text x="43" y="142" font-family="{SERIF_FAMILY}" font-size="18.5" font-style="italic" fill="{COLOR_BLUE}" letter-spacing="0.2">
+      B.Tech Electrical Engineering · Embedded &amp; Practical Systems Maker
     </text>
 
-    <!-- Bio Paragraph -->
-    <text x="43" y="206" font-family="{SANS_FAMILY}" font-size="14.5" fill="{COLOR_INK_MUTED}" font-weight="400">
-      Bridging software intelligence and physical electronics.
-    </text>
-    <text x="43" y="228" font-family="{SANS_FAMILY}" font-size="14.5" fill="{COLOR_INK_MUTED}" font-weight="400">
-      Designing safety IoT firmware, full-stack apps, and connected products.
-    </text>
+    <!-- Specific Resume Project & Technical Highlights -->
+    <g transform="translate(43, 170)" font-family="{SANS_FAMILY}" font-size="13" fill="{COLOR_INK_MUTED}">
+      <text x="0" y="0">
+        <tspan font-weight="600" fill="{COLOR_INK}">• Embedded Prototyping:</tspan> ESP32, Motor-Drivers, Voice Wheelchair
+      </text>
+      <text x="0" y="20">
+        <tspan font-weight="600" fill="{COLOR_INK}">• Systems &amp; TGA:</tspan> Building Electrical Systems, Control &amp; AutoCAD
+      </text>
+      <text x="0" y="40">
+        <tspan font-weight="600" fill="{COLOR_INK}">• Software Platforms:</tspan> UConnect App, RailGuard, Next.js, React Native
+      </text>
+      <text x="0" y="60">
+        <tspan font-weight="600" fill="{COLOR_INK}">• Coordination:</tspan> Student Leadership, Task Scheduling &amp; Documentation
+      </text>
+    </g>
 
-    <!-- Live Status Pill -->
-    <g transform="translate(43, 262)">
-      <rect x="0" y="0" width="415" height="42" rx="6" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-      <text x="16" y="26" font-family="{MONO_FAMILY}" font-size="11.5" fill="{COLOR_INK}" font-weight="500">
-        <tspan fill="{COLOR_YELLOW}">⚡ CURRENTLY:</tspan> Building RailGuard &amp; Logistics Apps
+    <!-- Live Status Pill & Internship Target -->
+    <g transform="translate(43, 256)">
+      <rect x="0" y="0" width="510" height="78" rx="6" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+      <text x="14" y="24" font-family="{MONO_FAMILY}" font-size="11" fill="{COLOR_INK}" font-weight="600">
+        <tspan fill="{COLOR_YELLOW}">⚡ CURRENT FOCUS:</tspan> Assistive Tech &amp; Building Electrical Systems
+      </text>
+      <text x="14" y="46" font-family="{MONO_FAMILY}" font-size="10.5" fill="{COLOR_INK_MUTED}">
+        🎯 SEEKING: 2027 Student Internship in Engineering &amp; Systems
+      </text>
+      <text x="14" y="66" font-family="{MONO_FAMILY}" font-size="10" fill="{COLOR_INK_FAINT}">
+        LANGUAGES: Bengali (Native) · English · Hindi · German (B1)
       </text>
     </g>
   </g>
 
   <!-- Divider Line -->
-  <line x1="485" y1="50" x2="485" y2="310" stroke="{COLOR_BORDER}" stroke-width="1" stroke-dasharray="3 3" />
+  <line x1="575" y1="45" x2="575" y2="345" stroke="{COLOR_BORDER}" stroke-width="1" stroke-dasharray="3 3" />
 
-  <!-- Right Column: Hardware & Circuit ASCII -->
+  <!-- Right Column: Animated Halftone Dotted Portrait -->
   <g>
-    <!-- ASCII Container Box -->
-    <rect x="500" y="90" width="365" height="235" rx="6" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
-    <rect x="500" y="55" width="180" height="26" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" />
-    <text x="512" y="72" font-family="{MONO_FAMILY}" font-size="10.5" font-weight="600" fill="{COLOR_INK_MUTED}">CIRCUIT_SCHEMATIC.TXT</text>
-    {ascii_content}
+    <!-- Portrait Outer Box -->
+    <rect x="595" y="44" width="315" height="312" rx="8" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <rect x="595" y="44" width="200" height="22" rx="4" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <text x="605" y="59" font-family="{MONO_FAMILY}" font-size="9.5" font-weight="600" fill="{COLOR_INK_MUTED}">PORTRAIT // DOTTED_SCAN</text>
+
+    <!-- Dotted Portrait Circles -->
+    {portrait_svg}
+
+    <!-- Bottom Caption -->
+    <text x="605" y="348" font-family="{MONO_FAMILY}" font-size="8.5" fill="{COLOR_INK_FAINT}">PHOTOMETRIC DOT-MATRIX // SK MOHAMMAD ALI</text>
   </g>
 </svg>"""
     return svg
@@ -357,7 +384,6 @@ def render_tile_card(tile_id, category, title, metric, description, accent_color
     width = 300
     height = 190
 
-    # SMIL count up simulation or clean typography
     anim_style = f"animation: swingIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) {delay_ms}ms forwards; opacity: {'1' if IS_STATIC else '0'};"
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
@@ -397,12 +423,12 @@ def render_tile_card(tile_id, category, title, metric, description, accent_color
     </text>
 
     <!-- Big Metric Number -->
-    <text x="24" y="116" font-family="{SERIF_FAMILY}" font-size="23" font-style="italic" fill="url(#tileShine_{tile_id})">
+    <text x="24" y="116" font-family="{SERIF_FAMILY}" font-size="22" font-style="italic" fill="url(#tileShine_{tile_id})">
       {metric}
     </text>
 
     <!-- Description / Tech Subtitle -->
-    <text x="24" y="146" font-family="{SANS_FAMILY}" font-size="13" fill="{COLOR_INK_MUTED}">
+    <text x="24" y="146" font-family="{SANS_FAMILY}" font-size="12.5" fill="{COLOR_INK_MUTED}">
       {description}
     </text>
 
@@ -423,7 +449,6 @@ def render_contributions_chart(data):
     height = 250
 
     monthly = data.get("monthly", {})
-    # Take the last 12 months in order
     sorted_months = sorted(monthly.keys())[-12:]
     
     max_val = max([monthly[m] for m in sorted_months] + [1])
@@ -447,7 +472,6 @@ def render_contributions_chart(data):
         is_peak = (m_key == peak_month)
         fill_color = COLOR_BLUE if is_peak else ("#93C5FD" if count > 0 else "#E5DEC9")
 
-        # Month label: format YYYY-MM to 'Jan', 'Feb', etc.
         try:
             m_dt = datetime.strptime(m_key, "%Y-%m")
             label = m_dt.strftime("%b")
@@ -457,7 +481,6 @@ def render_contributions_chart(data):
         delay = 0 if IS_STATIC else 300 + (idx * 45)
         anim_css = f"transform-origin: {bar_x + bar_w/2}px {chart_bottom_y}px; animation: growBar 0.7s cubic-bezier(0.16, 1, 0.3, 1) {delay}ms forwards; transform: scaleY({'1' if IS_STATIC else '0'});"
 
-        # Peak indicator badge
         peak_badge = ""
         if is_peak:
             peak_delay = delay + 350
@@ -480,14 +503,12 @@ def render_contributions_chart(data):
 
     bars_content = "\n".join(bars_svg)
 
-    # Right stats metrics
     total_contribs = data.get("total_contributions", 1297)
     active_days = data.get("active_days", 140)
     current_streak = data.get("current_streak", 0)
     longest_streak = data.get("longest_streak", 18)
     busiest = data.get("busiest_day", {})
     busiest_count = busiest.get("count", 0)
-    busiest_date = busiest.get("date", "N/A")
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
   <defs>
@@ -496,10 +517,8 @@ def render_contributions_chart(data):
     </style>
   </defs>
 
-  <!-- Base Paper -->
   <rect x="0" y="0" width="{width}" height="{height}" rx="12" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
 
-  <!-- Section Header -->
   <g transform="translate(42, 38)">
     <text x="0" y="0" font-family="{MONO_FAMILY}" font-size="11" font-weight="700" fill="{COLOR_BLUE}" letter-spacing="1">
       ACTIVITY // MONTHLY CONTRIBUTIONS CADENCE
@@ -509,43 +528,34 @@ def render_contributions_chart(data):
     </text>
   </g>
 
-  <!-- Left: Monthly Bars -->
   <g>
-    <!-- Baseline -->
     <line x1="40" y1="{chart_bottom_y}" x2="495" y2="{chart_bottom_y}" stroke="{COLOR_BORDER}" stroke-width="1" />
     {bars_content}
   </g>
 
-  <!-- Vertical Divider -->
   <line x1="530" y1="35" x2="530" y2="{height - 35}" stroke="{COLOR_BORDER}" stroke-width="1" stroke-dasharray="3 3" />
 
-  <!-- Right: Stat Blocks -->
   <g transform="translate(560, 42)">
-    <!-- Stat 1: Total Contributions -->
     <g transform="translate(0, 0)">
       <text x="0" y="12" font-family="{MONO_FAMILY}" font-size="10" font-weight="600" fill="{COLOR_INK_FAINT}">ANNUAL CONTRIBUTIONS</text>
       <text x="0" y="44" font-family="{SERIF_FAMILY}" font-size="34" font-weight="700" fill="{COLOR_BLUE}">{total_contribs:,}</text>
     </g>
 
-    <!-- Stat 2: Active Days -->
     <g transform="translate(160, 0)">
       <text x="0" y="12" font-family="{MONO_FAMILY}" font-size="10" font-weight="600" fill="{COLOR_INK_FAINT}">ACTIVE COMMIT DAYS</text>
       <text x="0" y="44" font-family="{SERIF_FAMILY}" font-size="34" font-weight="700" fill="{COLOR_INK}">{active_days} <tspan font-size="16" font-style="italic">days</tspan></text>
     </g>
 
-    <!-- Stat 3: Longest Streak -->
     <g transform="translate(0, 75)">
       <text x="0" y="12" font-family="{MONO_FAMILY}" font-size="10" font-weight="600" fill="{COLOR_INK_FAINT}">LONGEST STREAK</text>
       <text x="0" y="44" font-family="{SERIF_FAMILY}" font-size="34" font-weight="700" fill="{COLOR_INK}">{longest_streak} <tspan font-size="16" font-style="italic">days</tspan></text>
     </g>
 
-    <!-- Stat 4: Peak Output Day -->
     <g transform="translate(160, 75)">
       <text x="0" y="12" font-family="{MONO_FAMILY}" font-size="10" font-weight="600" fill="{COLOR_INK_FAINT}">BUSIEST 24H WINDOW</text>
       <text x="0" y="44" font-family="{SERIF_FAMILY}" font-size="34" font-weight="700" fill="{COLOR_YELLOW}">{busiest_count} <tspan font-size="16" font-style="italic">commits</tspan></text>
     </g>
 
-    <!-- Footer Timestamp -->
     <rect x="0" y="132" width="295" height="26" rx="4" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
     <circle cx="12" cy="145" r="3.5" fill="#10B981" />
     <text x="24" y="149" font-family="{MONO_FAMILY}" font-size="9.5" fill="{COLOR_INK_MUTED}">AUTOMATED GITHUB CRON REFRESH // DAILY</text>
@@ -560,16 +570,14 @@ def render_contribution_graph(data):
     height = 185
 
     calendar = data.get("calendar", [])
-    # 52 weeks * 7 days = 364 days
     display_days = calendar[-364:] if len(calendar) >= 364 else calendar
 
-    # Ink & Blue Palette
     LEVEL_COLORS = [
-        "#EAE5DB", # Level 0 (soft paper cavity)
-        "#BFDBFE", # Level 1 (pale sky)
-        "#60A5FA", # Level 2 (medium blue)
-        "#2563EB", # Level 3 (vibrant royal blue)
-        "#1E3A8A"  # Level 4 (deep ink cobalt)
+        "#EAE5DB",
+        "#BFDBFE",
+        "#60A5FA",
+        "#2563EB",
+        "#1E3A8A"
     ]
 
     cell_size = 11
@@ -608,10 +616,8 @@ def render_contribution_graph(data):
     </style>
   </defs>
 
-  <!-- Paper Card Background -->
   <rect x="0" y="0" width="{width}" height="{height}" rx="12" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
 
-  <!-- Graph Header -->
   <g transform="translate(48, 38)">
     <text x="0" y="0" font-family="{MONO_FAMILY}" font-size="11" font-weight="700" fill="{COLOR_BLUE}" letter-spacing="1">
       HEATMAP // 52-WEEK COMMIT TIMELINE
@@ -621,19 +627,16 @@ def render_contribution_graph(data):
     </text>
   </g>
 
-  <!-- Day Labels -->
   <g font-family="{MONO_FAMILY}" font-size="9" fill="{COLOR_INK_FAINT}">
     <text x="24" y="{start_y + 11}">Mon</text>
     <text x="24" y="{start_y + 40}">Wed</text>
     <text x="24" y="{start_y + 69}">Fri</text>
   </g>
 
-  <!-- Grid of cells -->
   <g>
     {cells_content}
   </g>
 
-  <!-- Legend -->
   <g transform="translate({width - 220}, {height - 20})" font-family="{MONO_FAMILY}" font-size="9" fill="{COLOR_INK_MUTED}">
     <text x="0" y="9">Less</text>
     <rect x="28" y="0" width="10" height="10" rx="2" fill="{LEVEL_COLORS[0]}" />
@@ -660,27 +663,20 @@ def render_repo_card(name, role_badge, description, lang, lang_color, accent_col
   </defs>
 
   <g class="rise-up" style="animation-delay: 200ms; opacity: {'1' if IS_STATIC else '0'};">
-    <!-- Card Frame -->
     <rect x="0" y="0" width="{width}" height="{height}" rx="10" fill="{COLOR_PAPER}" stroke="{COLOR_BORDER}" stroke-width="1.5" />
-    
-    <!-- Left Accent Strip -->
     <rect x="0" y="0" width="5" height="{height}" rx="2" fill="{accent_color}" />
 
-    <!-- Top Badge -->
-    <rect x="24" y="22" width="140" height="20" rx="4" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
+    <rect x="24" y="22" width="165" height="20" rx="4" fill="{COLOR_PAPER_SURFACE}" stroke="{COLOR_BORDER}" stroke-width="1" />
     <text x="32" y="36" font-family="{MONO_FAMILY}" font-size="9.5" font-weight="600" fill="{accent_color}">{role_badge}</text>
 
-    <!-- Repo Name -->
     <text x="24" y="68" font-family="{SERIF_FAMILY}" font-size="24" font-weight="700" fill="{COLOR_INK}">
       {name}
     </text>
 
-    <!-- Description -->
-    <text x="24" y="94" font-family="{SANS_FAMILY}" font-size="12.5" fill="{COLOR_INK_MUTED}">
+    <text x="24" y="94" font-family="{SANS_FAMILY}" font-size="12" fill="{COLOR_INK_MUTED}">
       {description}
     </text>
 
-    <!-- Tech Stack Pill & Arrow -->
     <g transform="translate(24, 122)">
       <circle cx="5" cy="5" r="4.5" fill="{lang_color}" />
       <text x="16" y="9" font-family="{MONO_FAMILY}" font-size="11" fill="{COLOR_INK}" font-weight="500">{lang}</text>
@@ -698,24 +694,23 @@ def main():
     print(f"[*] Rendering animated SVG cards (STATIC={IS_STATIC})...")
     os.makedirs(CARDS_DIR, exist_ok=True)
 
-    # 1. Fetch / Cache contributions
     data = fetch_contributions(USERNAME)
     print(f"[*] Total contributions: {data.get('total_contributions')}")
 
-    # 2. Render Hero Card
+    # 1. Render Hero Card with Name & Dotted Portrait
     hero_svg = render_hero_card()
     with open(os.path.join(CARDS_DIR, "hero.svg"), "w", encoding="utf-8") as f:
         f.write(hero_svg)
     print("[+] Rendered cards/hero.svg")
 
-    # 3. Render Three World Tiles
+    # 2. Render Three World Tiles
     # Tile 1: HARDWARE (Cobalt Blue)
     t1_svg = render_tile_card(
         tile_id="hardware",
         category="01 / HARDWARE &amp; IOT",
         title="HARDWARE",
-        metric="12+ BOARDS &amp; CIRCUITS",
-        description="RailGuard · IoT Safety · Microcontrollers",
+        metric="ESP32 &amp; SENSORS",
+        description="Voice Wheelchair · RailGuard · Motors &amp; PCB",
         accent_color=COLOR_BLUE,
         delay_ms=200
     )
@@ -723,13 +718,13 @@ def main():
         f.write(t1_svg)
     print("[+] Rendered cards/tile_hardware.svg")
 
-    # Tile 2: SOFTWARE (Vermillion Red)
+    # Tile 2: SOFTWARE (Vermillion Red) - UConnect App
     t2_svg = render_tile_card(
         tile_id="software",
         category="02 / FULL-STACK &amp; APPS",
         title="SOFTWARE",
-        metric="16+ REPOSITORIES",
-        description="Bringo Apps · Next.js · React Native",
+        metric="UCONNECT APP",
+        description="Campus &amp; Delivery Logistics · React Native · Next.js",
         accent_color=COLOR_RED,
         delay_ms=350
     )
@@ -737,13 +732,13 @@ def main():
         f.write(t2_svg)
     print("[+] Rendered cards/tile_software.svg")
 
-    # Tile 3: INNOVATION (Goldenrod Yellow)
+    # Tile 3: INNOVATION & SYSTEMS (Goldenrod Yellow)
     t3_svg = render_tile_card(
         tile_id="innovation",
-        category="03 / SYSTEMS &amp; LABS",
+        category="03 / SYSTEMS &amp; TGA",
         title="INNOVATION",
-        metric="100% BUILDER",
-        description="Startups · Practical Engineering · R&amp;D",
+        metric="PROJECT COORD",
+        description="Building Electrical (TGA) · Control · Documentation",
         accent_color=COLOR_YELLOW,
         delay_ms=500
     )
@@ -751,24 +746,24 @@ def main():
         f.write(t3_svg)
     print("[+] Rendered cards/tile_innovation.svg")
 
-    # 4. Render Monthly Contributions Chart
+    # 3. Render Monthly Contributions Chart
     chart_svg = render_contributions_chart(data)
     with open(os.path.join(CARDS_DIR, "contributions_chart.svg"), "w", encoding="utf-8") as f:
         f.write(chart_svg)
     print("[+] Rendered cards/contributions_chart.svg")
 
-    # 5. Render Blue Contribution Graph
+    # 4. Render Blue Contribution Graph
     graph_svg = render_contribution_graph(data)
     with open(os.path.join(CARDS_DIR, "contribution_graph.svg"), "w", encoding="utf-8") as f:
         f.write(graph_svg)
     print("[+] Rendered cards/contribution_graph.svg")
 
-    # 6. Render Featured Repos
+    # 5. Render Featured Repos (RailGuard & UConnect App)
     repo1_svg = render_repo_card(
         name="RailGuard",
         role_badge="IOT &amp; EMBEDDED SYSTEM",
         description="Railway safety &amp; automated track collision monitoring.",
-        lang="Kotlin · C++ / Arduino",
+        lang="Kotlin · Arduino / C++",
         lang_color="#A97BFF",
         accent_color=COLOR_BLUE,
         link_url="https://github.com/skmohammadali786/RailGuard"
@@ -778,17 +773,17 @@ def main():
     print("[+] Rendered cards/repo_railguard.svg")
 
     repo2_svg = render_repo_card(
-        name="Bringo Apps",
+        name="UConnect App",
         role_badge="FULL-STACK PLATFORM",
-        description="On-demand delivery agent &amp; customer mobile logistics suite.",
+        description="Real-time campus &amp; community logistics connectivity suite.",
         lang="TypeScript · React Native",
         lang_color="#3178C6",
         accent_color=COLOR_RED,
-        link_url="https://github.com/skmohammadali786/Bringo-deliveryagent-app"
+        link_url="https://github.com/skmohammadali786"
     )
-    with open(os.path.join(CARDS_DIR, "repo_bringo.svg"), "w", encoding="utf-8") as f:
+    with open(os.path.join(CARDS_DIR, "repo_uconnect.svg"), "w", encoding="utf-8") as f:
         f.write(repo2_svg)
-    print("[+] Rendered cards/repo_bringo.svg")
+    print("[+] Rendered cards/repo_uconnect.svg")
 
     print("[✔] All animated SVG cards generated successfully in cards/!")
 

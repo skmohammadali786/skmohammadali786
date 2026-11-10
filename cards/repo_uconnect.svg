@@ -16,8 +16,8 @@
         }
 
         @keyframes printRow {
-          0% { opacity: 0; transform: translateX(-4px); }
-          100% { opacity: 1; transform: translateX(0); }
+          0% { opacity: 0; transform: translateY(-3px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseDot {
@@ -74,27 +74,20 @@
   </defs>
 
   <g class="rise-up" style="animation-delay: 200ms; opacity: 0;">
-    <!-- Card Frame -->
     <rect x="0" y="0" width="440" height="160" rx="10" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
-    
-    <!-- Left Accent Strip -->
     <rect x="0" y="0" width="5" height="160" rx="2" fill="#DC2626" />
 
-    <!-- Top Badge -->
-    <rect x="24" y="22" width="140" height="20" rx="4" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+    <rect x="24" y="22" width="165" height="20" rx="4" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
     <text x="32" y="36" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9.5" font-weight="600" fill="#DC2626">FULL-STACK PLATFORM</text>
 
-    <!-- Repo Name -->
     <text x="24" y="68" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="24" font-weight="700" fill="#1A1A1A">
-      Bringo Apps
+      UConnect App
     </text>
 
-    <!-- Description -->
-    <text x="24" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" fill="#55504A">
-      On-demand delivery agent &amp; customer mobile logistics suite.
+    <text x="24" y="94" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#55504A">
+      Real-time campus &amp; community logistics connectivity suite.
     </text>
 
-    <!-- Tech Stack Pill & Arrow -->
     <g transform="translate(24, 122)">
       <circle cx="5" cy="5" r="4.5" fill="#3178C6" />
       <text x="16" y="9" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" font-weight="500">TypeScript · React Native</text>

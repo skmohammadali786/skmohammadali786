@@ -16,8 +16,8 @@
         }
 
         @keyframes printRow {
-          0% { opacity: 0; transform: translateX(-4px); }
-          100% { opacity: 1; transform: translateX(0); }
+          0% { opacity: 0; transform: translateY(-3px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseDot {
@@ -103,13 +103,13 @@
     </text>
 
     <!-- Big Metric Number -->
-    <text x="24" y="116" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="23" font-style="italic" fill="url(#tileShine_software)">
-      16+ REPOSITORIES
+    <text x="24" y="116" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="22" font-style="italic" fill="url(#tileShine_software)">
+      UCONNECT APP
     </text>
 
     <!-- Description / Tech Subtitle -->
-    <text x="24" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#55504A">
-      Bringo Apps · Next.js · React Native
+    <text x="24" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" fill="#55504A">
+      Campus &amp; Delivery Logistics · React Native · Next.js
     </text>
 
     <!-- Link / Action Arrow Footer -->

@@ -16,8 +16,8 @@
         }
 
         @keyframes printRow {
-          0% { opacity: 0; transform: translateX(-4px); }
-          100% { opacity: 1; transform: translateX(0); }
+          0% { opacity: 0; transform: translateY(-3px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulseDot {
@@ -94,7 +94,7 @@
 
     <!-- Category Header -->
     <text x="24" y="34" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" font-weight="700" fill="#D97706" letter-spacing="1">
-      03 / SYSTEMS &amp; LABS
+      03 / SYSTEMS &amp; TGA
     </text>
 
     <!-- Main Title in Serif -->
@@ -103,13 +103,13 @@
     </text>
 
     <!-- Big Metric Number -->
-    <text x="24" y="116" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="23" font-style="italic" fill="url(#tileShine_innovation)">
-      100% BUILDER
+    <text x="24" y="116" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="22" font-style="italic" fill="url(#tileShine_innovation)">
+      PROJECT COORD
     </text>
 
     <!-- Description / Tech Subtitle -->
-    <text x="24" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#55504A">
-      Startups · Practical Engineering · R&amp;D
+    <text x="24" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" fill="#55504A">
+      Building Electrical (TGA) · Control · Documentation
     </text>
 
     <!-- Link / Action Arrow Footer -->
