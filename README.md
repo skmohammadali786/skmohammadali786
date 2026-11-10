@@ -1,24 +1,62 @@
-I'm currently working on Web development projects, IoT projects and improving my programming skills with real life solutions.I'm looking to collaborate on Open source projects, web apps, and beginner friendly tech & IoT projects.I'm looking for help with Advanced web development concepts and real world project experience.I'm currently learning advance software engineering concepts.Ask me about Web development, tech tools, productivity tips, and electrical engineering student life.I enjoy building things on the internet and learning something new every day.
+<div align="center">
 
+<!-- Hero Card: Name, Title, Live Status & Animated ASCII Circuit -->
+<img src="./cards/hero.svg" width="100%" alt="SK Mohammad Ali - Hero Banner" />
 
-## 🌐 Socials:
-[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://facebook.com/skmohammadalii ) [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/skmohammadali_) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/skmohammadali) [![Medium](https://img.shields.io/badge/Medium-12100E?logo=medium&logoColor=white)](https://medium.com/@skmohammadali) [![Reddit](https://img.shields.io/badge/Reddit-%23FF4500.svg?logo=Reddit&logoColor=white)](https://reddit.com/user/skmohammadali) [![X](https://img.shields.io/badge/X-black.svg?logo=X&logoColor=white)](https://x.com/Skmohammadali_) [![email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white)](mailto:connect@skmohammadali.in) 
+<br/><br/>
 
-# 💻 Tech Stack:
-![C](https://img.shields.io/badge/c-%2300599C.svg?style=plastic&logo=c&logoColor=white) ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=plastic&logo=c%2B%2B&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=plastic&logo=html5&logoColor=white) ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=plastic&logo=openjdk&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=plastic&logo=javascript&logoColor=%23F7DF1E) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=plastic&logo=typescript&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=plastic&logo=python&logoColor=ffdd54) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=plastic&logo=expo&logoColor=#D04A37) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=plastic&logo=express&logoColor=%2361DAFB) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=plastic&logo=fastapi) ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=plastic&logo=Flutter&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white) ![Next JS](https://img.shields.io/badge/Next-black?style=plastic&logo=next.js&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=plastic&logo=npm&logoColor=white) ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=plastic&logo=SASS&logoColor=white) ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=plastic&logo=socket.io&badgeColor=010101) ![Three js](https://img.shields.io/badge/threejs-black?style=plastic&logo=three.js&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white) ![Web3.js](https://img.shields.io/badge/web3.js-F16822?style=plastic&logo=web3.js&logoColor=white) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=plastic&logo=vite&logoColor=white) ![WebGL](https://img.shields.io/badge/WebGL-990000?logo=webgl&logoColor=white&style=plastic) ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=plastic&logo=redis&logoColor=white) ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=plastic&logo=supabase&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=plastic&logo=mysql&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=plastic&logo=mongodb&logoColor=white) ![Adobe](https://img.shields.io/badge/adobe-%23FF0000.svg?style=plastic&logo=adobe&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=plastic&logo=figma&logoColor=white) ![Framer](https://img.shields.io/badge/Framer-black?style=plastic&logo=framer&logoColor=blue) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=plastic&logo=githubactions&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=plastic&logo=git&logoColor=white) ![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=plastic&logo=Arduino&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=plastic&logo=docker&logoColor=white) ![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=plastic&logo=Gradle&logoColor=white) ![Meta](https://img.shields.io/badge/Meta-%230467DF.svg?style=plastic&logo=Meta&logoColor=white) ![Raspberry Pi](https://img.shields.io/badge/-Raspberry_Pi-C51A4A?style=plastic&logo=Raspberry-Pi) ![Unreal Engine](https://img.shields.io/badge/unrealengine-%23313131.svg?style=plastic&logo=unrealengine&logoColor=white) ![Bevy](https://img.shields.io/badge/bevy-%23232326.svg?style=plastic&logo=bevy&logoColor=white) ![nVIDIA](https://img.shields.io/badge/nVIDIA-%2376B900.svg?style=plastic&logo=nVIDIA&logoColor=white) ![PlatformIO](https://img.shields.io/badge/PlatformIO-%23222.svg?style=plastic&logo=platformio&logoColor=%23f5822a) ![Portfolio](https://img.shields.io/badge/Portfolio-%23000000.svg?style=plastic&logo=firefox&logoColor=#FF7139) ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=plastic&logo=testing-library&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=plastic&logo=TensorFlow&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=plastic&logo=postgresql&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=plastic&logo=JSON%20web%20tokens) ![Remix](https://img.shields.io/badge/remix-%23000.svg?style=plastic&logo=remix&logoColor=white) ![Vue.js](https://img.shields.io/badge/vue.js-%2335495e.svg?style=plastic&logo=vuedotjs&logoColor=%234FC08D) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=plastic&logo=vercel&logoColor=white) ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=plastic&logo=netlify&logoColor=#00C7B7) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=plastic&logo=firebase) ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=plastic&logo=Cloudflare&logoColor=white) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=plastic&logo=render&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=plastic&logo=amazon-aws&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=plastic&logo=google-cloud&logoColor=white) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=plastic&logo=php&logoColor=white) ![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=plastic&logo=kotlin&logoColor=white)
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=skmohammadali786&theme=dark&hide_border=false&include_all_commits=true&count_private=true)<br/>
-![](https://nirzak-streak-stats.vercel.app/?user=skmohammadali786&theme=dark&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=skmohammadali786&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
+<!-- Three World Tiles: Hardware, Software, Innovation -->
+<p align="center">
+  <a href="https://github.com/skmohammadali786/RailGuard"><img src="./cards/tile_hardware.svg" width="32.5%" alt="01 / Hardware & IoT" /></a>
+  <a href="https://github.com/skmohammadali786?tab=repositories"><img src="./cards/tile_software.svg" width="32.5%" alt="02 / Full-Stack Software" /></a>
+  <a href="https://www.skmohammadali.in"><img src="./cards/tile_innovation.svg" width="32.5%" alt="03 / Systems & Innovation" /></a>
+</p>
 
-## 🏆 GitHub Trophies
-![](https://github-profile-trophy.vercel.app/?username=skmohammadali786&theme=radical&no-frame=false&no-bg=true&margin-w=4)
+<!-- Monthly Contributions Cadence & Streak Stats -->
+<img src="./cards/contributions_chart.svg" width="100%" alt="12-Month GitHub Contribution Frequency" />
 
-### ✍️ Random Dev Quote
-![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
+<br/><br/>
 
-### 🔝 Top Contributed Repo
-![](https://github-contributor-stats.vercel.app/api?username=skmohammadali786&limit=5&theme=dark&combine_all_yearly_contributions=true)
+<!-- 52-Week Contribution Heatmap (Ink & Cobalt Blue) -->
+<img src="./cards/contribution_graph.svg" width="100%" alt="52-Week Contribution Heatmap" />
+
+<br/><br/>
+
+<!-- Featured Engineering Repositories -->
+<p align="center">
+  <a href="https://github.com/skmohammadali786/RailGuard"><img src="./cards/repo_railguard.svg" width="49%" alt="RailGuard - IoT Railway Track Safety" /></a>
+  <a href="https://github.com/skmohammadali786/Bringo-deliveryagent-app"><img src="./cards/repo_bringo.svg" width="49%" alt="Bringo - Delivery Agent App" /></a>
+</p>
+
+</div>
 
 ---
-[![](https://visitcount.itsvg.in/api?id=skmohammadali786&icon=0&color=0)](https://visitcount.itsvg.in)
+
+### ⚡ Practical Systems & Technical Stack
+
+```text
+┌─────────────────┬────────────────────────────────────────────────────────┐
+│ DOMAIN          │ TECHNOLOGIES & TOOLS                                   │
+├─────────────────┼────────────────────────────────────────────────────────┤
+│ Embedded & IoT  │ C, C++, Arduino, ESP32, Raspberry Pi, PlatformIO, PCB  │
+│ Full-Stack & App│ TypeScript, Next.js, React Native, Node.js, FastAPI    │
+│ Systems & Data  │ Python, PostgreSQL, Redis, Supabase, Docker, Linux     │
+│ UI & Prototyping│ Tailwind CSS, Figma, Three.js, REST & WebSocket APIs   │
+└─────────────────┴────────────────────────────────────────────────────────┘
+```
+
+---
+
+<div align="center">
+
+### 🌐 Connect & Transmit
+
+[![Website](https://img.shields.io/badge/Portfolio-skmohammadali.in-1E40AF?style=flat-square&logo=google-chrome&logoColor=white)](https://www.skmohammadali.in/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-SK_Mohammad_Ali-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/skmohammadali)
+[![X (Twitter)](https://img.shields.io/badge/X-@Skmohammadali_-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/Skmohammadali_)
+[![Email](https://img.shields.io/badge/Email-connect@skmohammadali.in-D97706?style=flat-square&logo=gmail&logoColor=white)](mailto:connect@skmohammadali.in)
+[![Resume](https://img.shields.io/badge/Resume-Download_PDF-DC2626?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)](https://www.skmohammadali.in/resume.pdf)
+
+<sub>Built with animated editorial SVG cards · Refreshed daily via GitHub Actions · Inspired by Avi Vashishta</sub>
+
+</div>

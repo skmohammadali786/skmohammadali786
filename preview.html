@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SK Mohammad Ali - Animated GitHub Profile Cards Preview</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 30px 15px;
+      display: flex;
+      justify-content: center;
+    }
+    .readme-container {
+      max-width: 900px;
+      width: 100%;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: #8b949e;
+    }
+    .tiles-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .tiles-row a {
+      flex: 1;
+      display: block;
+    }
+    .tiles-row img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+    .card-full {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 16px 0;
+      border-radius: 8px;
+    }
+    .repos-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .repos-row a {
+      flex: 1;
+    }
+    .repos-row img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="readme-container">
+    <div class="header-bar">
+      <span><strong>skmohammadali786</strong> / README.md</span>
+      <span>Live Animated SVG Cards (Refreshed Daily)</span>
+    </div>
+
+    <!-- Hero Card -->
+    <img class="card-full" src="cards/hero.svg" alt="SK Mohammad Ali - Hero" />
+
+    <!-- 3 World Tiles -->
+    <div class="tiles-row">
+      <a href="https://github.com/skmohammadali786/RailGuard"><img src="cards/tile_hardware.svg" alt="Hardware Tile" /></a>
+      <a href="https://github.com/skmohammadali786?tab=repositories"><img src="cards/tile_software.svg" alt="Software Tile" /></a>
+      <a href="https://www.skmohammadali.in"><img src="cards/tile_innovation.svg" alt="Innovation Tile" /></a>
+    </div>
+
+    <!-- Monthly Contributions -->
+    <img class="card-full" src="cards/contributions_chart.svg" alt="Contributions Cadence" />
+
+    <!-- 52-Week Heatmap -->
+    <img class="card-full" src="cards/contribution_graph.svg" alt="52-Week Contribution Heatmap" />
+
+    <!-- Featured Repos -->
+    <div class="repos-row">
+      <a href="https://github.com/skmohammadali786/RailGuard"><img src="cards/repo_railguard.svg" alt="RailGuard" /></a>
+      <a href="https://github.com/skmohammadali786/Bringo-deliveryagent-app"><img src="cards/repo_bringo.svg" alt="Bringo" /></a>
+    </div>
+  </div>
+</body>
+</html>

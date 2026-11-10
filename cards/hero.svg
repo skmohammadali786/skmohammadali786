@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="100%" height="100%">
+  <defs>
+    <style>
+      
+        * { box-sizing: border-box; }
+        
+        @keyframes riseUp {
+          0% { opacity: 0; transform: translateY(18px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes swingIn {
+          0% { opacity: 0; transform: translateY(35px) rotate(1.2deg); }
+          70% { transform: translateY(-3px) rotate(-0.4deg); }
+          100% { opacity: 1; transform: translateY(0) rotate(0); }
+        }
+
+        @keyframes printRow {
+          0% { opacity: 0; transform: translateX(-4px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulseDot {
+          0%, 100% { opacity: 0.9; transform: scale(1); }
+          50% { opacity: 0.3; transform: scale(1.6); }
+        }
+
+        @keyframes arrowNudge {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(5px); }
+        }
+
+        @keyframes popSquare {
+          0% { opacity: 0; transform: scale(0.2); }
+          75% { transform: scale(1.15); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes growBar {
+          0% { transform: scaleY(0); }
+          100% { transform: scaleY(1); }
+        }
+
+        @keyframes popNumber {
+          0% { opacity: 0; transform: translateY(6px) scale(0.85); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .rise-up {
+          animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .pulse-beacon {
+          transform-origin: center;
+          animation: pulseDot 2.4s ease-in-out infinite;
+        }
+
+        .nudge-arrow {
+          animation: arrowNudge 2s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+            animation-delay: 0ms !important;
+            transform: none !important;
+            opacity: 1 !important;
+          }
+        }
+    
+    </style>
+    <linearGradient id="heroInkShine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1A1A1A" />
+      <stop offset="35%" stop-color="#1A1A1A" />
+      <stop offset="50%" stop-color="#1E40AF" />
+      <stop offset="65%" stop-color="#1A1A1A" />
+      <stop offset="100%" stop-color="#1A1A1A" />
+      <animateTransform attributeName='gradientTransform' type='translate' from='-600,0' to='700,0' dur='5.5s' repeatCount='indefinite' />
+    </linearGradient>
+    <pattern id="dotGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.75" fill="#E6DFD2" opacity="0.7" />
+    </pattern>
+  </defs>
+
+  <!-- Paper Card Base -->
+  <rect x="0" y="0" width="900" height="360" rx="12" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
+  <rect x="12" y="12" width="876" height="336" rx="8" fill="url(#dotGrid)" opacity="0.6" />
+  <rect x="16" y="16" width="868" height="328" rx="6" fill="none" stroke="#EFECE6" stroke-width="1" stroke-dasharray="4 4" />
+
+  <!-- Corner Blueprint Marks -->
+  <text x="24" y="32" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10" fill="#8A847C">+ REF.01</text>
+  <text x="830" y="32" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10" fill="#8A847C">EST. 2024 +</text>
+
+  <!-- Left Column: Identity & Bio -->
+  <g class="rise-up" style="animation-delay: 100ms; opacity: 0;">
+    <!-- Top Metadata Badge -->
+    <rect x="42" y="52" width="250" height="24" rx="12" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+    <circle cx="56" cy="64" r="4" fill="#10B981" />
+    <circle cx="56" cy="64" r="4" fill="#10B981" class="pulse-beacon" />
+    <text x="68" y="68" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10.5" font-weight="600" fill="#55504A" letter-spacing="0.5">ALIAH UNIV // KOLKATA, IN</text>
+    
+    <!-- Primary Heading: Name -->
+    <text x="42" y="132" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" fill="url(#heroInkShine)" letter-spacing="-0.5">
+      SK Mohammad Ali
+    </text>
+
+    <!-- Subtitle: Role & Specialty -->
+    <text x="43" y="168" font-family="'Instrument Serif', 'Newsreader', Georgia, 'Times New Roman', serif" font-size="21" font-style="italic" fill="#1E40AF" letter-spacing="0.2">
+      Electrical Engineering &amp; Practical Systems Maker
+    </text>
+
+    <!-- Bio Paragraph -->
+    <text x="43" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14.5" fill="#55504A" font-weight="400">
+      Bridging software intelligence and physical electronics.
+    </text>
+    <text x="43" y="228" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14.5" fill="#55504A" font-weight="400">
+      Designing safety IoT firmware, full-stack apps, and connected products.
+    </text>
+
+    <!-- Live Status Pill -->
+    <g transform="translate(43, 262)">
+      <rect x="0" y="0" width="415" height="42" rx="6" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+      <text x="16" y="26" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11.5" fill="#1A1A1A" font-weight="500">
+        <tspan fill="#D97706">⚡ CURRENTLY:</tspan> Building RailGuard &amp; Logistics Apps
+      </text>
+    </g>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="485" y1="50" x2="485" y2="310" stroke="#E5DEC9" stroke-width="1" stroke-dasharray="3 3" />
+
+  <!-- Right Column: Hardware & Circuit ASCII -->
+  <g>
+    <!-- ASCII Container Box -->
+    <rect x="500" y="90" width="365" height="235" rx="6" fill="#F4EFE6" stroke="#E5DEC9" stroke-width="1" />
+    <rect x="500" y="55" width="180" height="26" rx="4" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1" />
+    <text x="512" y="72" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10.5" font-weight="600" fill="#55504A">CIRCUIT_SCHEMATIC.TXT</text>
+    <text x="515" y="120" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 250ms forwards; opacity: 0;">+-----------------------------------------+</text>
+    <text x="515" y="136" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 290ms forwards; opacity: 0;">|  [ALIAH-EE]   ALIAH UNIVERSITY // KOLKATA|</text>
+    <text x="515" y="152" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 330ms forwards; opacity: 0;">|  +====================================+ |</text>
+    <text x="515" y="168" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 370ms forwards; opacity: 0;">|  |   SK-MOHAMMAD-ALI // ARCHITECTURE  | |</text>
+    <text x="515" y="184" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 410ms forwards; opacity: 0;">|  |  .------.       .-----.    .------.| |</text>
+    <text x="515" y="200" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 450ms forwards; opacity: 0;">|  |  |SENSOR|------&gt;| MCU |&lt;--&gt;| RF/4G || |</text>
+    <text x="515" y="216" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 490ms forwards; opacity: 0;">|  |  '------'       '-----'    '------'| |</text>
+    <text x="515" y="232" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 530ms forwards; opacity: 0;">|  |     |         [SYSTEMS]        |   | |</text>
+    <text x="515" y="248" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 570ms forwards; opacity: 0;">|  |   =====     I2C  SPI  PWM    ===== | |</text>
+    <text x="515" y="264" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 610ms forwards; opacity: 0;">|  |    GND      SDA  CLK  IO5     3V3  | |</text>
+    <text x="515" y="280" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 650ms forwards; opacity: 0;">|  +====================================+ |</text>
+    <text x="515" y="296" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 690ms forwards; opacity: 0;">|  PIN: 01 02 03 04 05 06 07 08 09 10 11  |</text>
+    <text x="515" y="312" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 730ms forwards; opacity: 0;">|  STATUS: EMBEDDED + FULLSTACK ONLINE ●  |</text>
+    <text x="515" y="328" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" fill="#1A1A1A" letter-spacing="0.5" style="animation: printRow 0.4s ease-out 770ms forwards; opacity: 0;">+-----------------------------------------+</text>
+  </g>
+</svg>

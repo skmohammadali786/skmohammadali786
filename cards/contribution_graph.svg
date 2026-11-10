@@ -1,0 +1,474 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 185" width="100%" height="100%">
+  <defs>
+    <style>
+      
+        * { box-sizing: border-box; }
+        
+        @keyframes riseUp {
+          0% { opacity: 0; transform: translateY(18px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes swingIn {
+          0% { opacity: 0; transform: translateY(35px) rotate(1.2deg); }
+          70% { transform: translateY(-3px) rotate(-0.4deg); }
+          100% { opacity: 1; transform: translateY(0) rotate(0); }
+        }
+
+        @keyframes printRow {
+          0% { opacity: 0; transform: translateX(-4px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulseDot {
+          0%, 100% { opacity: 0.9; transform: scale(1); }
+          50% { opacity: 0.3; transform: scale(1.6); }
+        }
+
+        @keyframes arrowNudge {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(5px); }
+        }
+
+        @keyframes popSquare {
+          0% { opacity: 0; transform: scale(0.2); }
+          75% { transform: scale(1.15); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes growBar {
+          0% { transform: scaleY(0); }
+          100% { transform: scaleY(1); }
+        }
+
+        @keyframes popNumber {
+          0% { opacity: 0; transform: translateY(6px) scale(0.85); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .rise-up {
+          animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .pulse-beacon {
+          transform-origin: center;
+          animation: pulseDot 2.4s ease-in-out infinite;
+        }
+
+        .nudge-arrow {
+          animation: arrowNudge 2s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+            animation-delay: 0ms !important;
+            transform: none !important;
+            opacity: 1 !important;
+          }
+        }
+    
+    </style>
+  </defs>
+
+  <!-- Paper Card Background -->
+  <rect x="0" y="0" width="900" height="185" rx="12" fill="#FAF7F2" stroke="#E5DEC9" stroke-width="1.5" />
+
+  <!-- Graph Header -->
+  <g transform="translate(48, 38)">
+    <text x="0" y="0" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="11" font-weight="700" fill="#1E40AF" letter-spacing="1">
+      HEATMAP // 52-WEEK COMMIT TIMELINE
+    </text>
+    <text x="660" y="0" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="10.5" fill="#55504A">
+      TOTAL: <tspan font-weight="bold" fill="#1A1A1A">1,297</tspan> CONTRIBUTIONS
+    </text>
+  </g>
+
+  <!-- Day Labels -->
+  <g font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9" fill="#8A847C">
+    <text x="24" y="79">Mon</text>
+    <text x="24" y="108">Wed</text>
+    <text x="24" y="137">Fri</text>
+  </g>
+
+  <!-- Grid of cells -->
+  <g>
+    <rect x="48.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 53.5px 73.5px; animation: popSquare 0.4s ease-out 150ms forwards; opacity: 0;" />
+    <rect x="48.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 53.5px 88.0px; animation: popSquare 0.4s ease-out 150ms forwards; opacity: 0;" />
+    <rect x="48.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 53.5px 102.5px; animation: popSquare 0.4s ease-out 150ms forwards; opacity: 0;" />
+    <rect x="48.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 53.5px 117.0px; animation: popSquare 0.4s ease-out 150ms forwards; opacity: 0;" />
+    <rect x="48.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 53.5px 131.5px; animation: popSquare 0.4s ease-out 150ms forwards; opacity: 0;" />
+    <rect x="48.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 53.5px 146.0px; animation: popSquare 0.4s ease-out 150ms forwards; opacity: 0;" />
+    <rect x="48.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 53.5px 160.5px; animation: popSquare 0.4s ease-out 150ms forwards; opacity: 0;" />
+    <rect x="62.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 68.0px 73.5px; animation: popSquare 0.4s ease-out 164ms forwards; opacity: 0;" />
+    <rect x="62.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 68.0px 88.0px; animation: popSquare 0.4s ease-out 164ms forwards; opacity: 0;" />
+    <rect x="62.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 68.0px 102.5px; animation: popSquare 0.4s ease-out 164ms forwards; opacity: 0;" />
+    <rect x="62.5" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 68.0px 117.0px; animation: popSquare 0.4s ease-out 164ms forwards; opacity: 0;" />
+    <rect x="62.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 68.0px 131.5px; animation: popSquare 0.4s ease-out 164ms forwards; opacity: 0;" />
+    <rect x="62.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 68.0px 146.0px; animation: popSquare 0.4s ease-out 164ms forwards; opacity: 0;" />
+    <rect x="62.5" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 68.0px 160.5px; animation: popSquare 0.4s ease-out 164ms forwards; opacity: 0;" />
+    <rect x="77.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 82.5px 73.5px; animation: popSquare 0.4s ease-out 178ms forwards; opacity: 0;" />
+    <rect x="77.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 82.5px 88.0px; animation: popSquare 0.4s ease-out 178ms forwards; opacity: 0;" />
+    <rect x="77.0" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 82.5px 102.5px; animation: popSquare 0.4s ease-out 178ms forwards; opacity: 0;" />
+    <rect x="77.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 82.5px 117.0px; animation: popSquare 0.4s ease-out 178ms forwards; opacity: 0;" />
+    <rect x="77.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 82.5px 131.5px; animation: popSquare 0.4s ease-out 178ms forwards; opacity: 0;" />
+    <rect x="77.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 82.5px 146.0px; animation: popSquare 0.4s ease-out 178ms forwards; opacity: 0;" />
+    <rect x="77.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 82.5px 160.5px; animation: popSquare 0.4s ease-out 178ms forwards; opacity: 0;" />
+    <rect x="91.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 97.0px 73.5px; animation: popSquare 0.4s ease-out 192ms forwards; opacity: 0;" />
+    <rect x="91.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 97.0px 88.0px; animation: popSquare 0.4s ease-out 192ms forwards; opacity: 0;" />
+    <rect x="91.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 97.0px 102.5px; animation: popSquare 0.4s ease-out 192ms forwards; opacity: 0;" />
+    <rect x="91.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 97.0px 117.0px; animation: popSquare 0.4s ease-out 192ms forwards; opacity: 0;" />
+    <rect x="91.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 97.0px 131.5px; animation: popSquare 0.4s ease-out 192ms forwards; opacity: 0;" />
+    <rect x="91.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 97.0px 146.0px; animation: popSquare 0.4s ease-out 192ms forwards; opacity: 0;" />
+    <rect x="91.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 97.0px 160.5px; animation: popSquare 0.4s ease-out 192ms forwards; opacity: 0;" />
+    <rect x="106.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 111.5px 73.5px; animation: popSquare 0.4s ease-out 206ms forwards; opacity: 0;" />
+    <rect x="106.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 111.5px 88.0px; animation: popSquare 0.4s ease-out 206ms forwards; opacity: 0;" />
+    <rect x="106.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 111.5px 102.5px; animation: popSquare 0.4s ease-out 206ms forwards; opacity: 0;" />
+    <rect x="106.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 111.5px 117.0px; animation: popSquare 0.4s ease-out 206ms forwards; opacity: 0;" />
+    <rect x="106.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 111.5px 131.5px; animation: popSquare 0.4s ease-out 206ms forwards; opacity: 0;" />
+    <rect x="106.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 111.5px 146.0px; animation: popSquare 0.4s ease-out 206ms forwards; opacity: 0;" />
+    <rect x="106.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 111.5px 160.5px; animation: popSquare 0.4s ease-out 206ms forwards; opacity: 0;" />
+    <rect x="120.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 126.0px 73.5px; animation: popSquare 0.4s ease-out 220ms forwards; opacity: 0;" />
+    <rect x="120.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 126.0px 88.0px; animation: popSquare 0.4s ease-out 220ms forwards; opacity: 0;" />
+    <rect x="120.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 126.0px 102.5px; animation: popSquare 0.4s ease-out 220ms forwards; opacity: 0;" />
+    <rect x="120.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 126.0px 117.0px; animation: popSquare 0.4s ease-out 220ms forwards; opacity: 0;" />
+    <rect x="120.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 126.0px 131.5px; animation: popSquare 0.4s ease-out 220ms forwards; opacity: 0;" />
+    <rect x="120.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 126.0px 146.0px; animation: popSquare 0.4s ease-out 220ms forwards; opacity: 0;" />
+    <rect x="120.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 126.0px 160.5px; animation: popSquare 0.4s ease-out 220ms forwards; opacity: 0;" />
+    <rect x="135.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 140.5px 73.5px; animation: popSquare 0.4s ease-out 234ms forwards; opacity: 0;" />
+    <rect x="135.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 140.5px 88.0px; animation: popSquare 0.4s ease-out 234ms forwards; opacity: 0;" />
+    <rect x="135.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 140.5px 102.5px; animation: popSquare 0.4s ease-out 234ms forwards; opacity: 0;" />
+    <rect x="135.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 140.5px 117.0px; animation: popSquare 0.4s ease-out 234ms forwards; opacity: 0;" />
+    <rect x="135.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 140.5px 131.5px; animation: popSquare 0.4s ease-out 234ms forwards; opacity: 0;" />
+    <rect x="135.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 140.5px 146.0px; animation: popSquare 0.4s ease-out 234ms forwards; opacity: 0;" />
+    <rect x="135.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 140.5px 160.5px; animation: popSquare 0.4s ease-out 234ms forwards; opacity: 0;" />
+    <rect x="149.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 155.0px 73.5px; animation: popSquare 0.4s ease-out 248ms forwards; opacity: 0;" />
+    <rect x="149.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 155.0px 88.0px; animation: popSquare 0.4s ease-out 248ms forwards; opacity: 0;" />
+    <rect x="149.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 155.0px 102.5px; animation: popSquare 0.4s ease-out 248ms forwards; opacity: 0;" />
+    <rect x="149.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 155.0px 117.0px; animation: popSquare 0.4s ease-out 248ms forwards; opacity: 0;" />
+    <rect x="149.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 155.0px 131.5px; animation: popSquare 0.4s ease-out 248ms forwards; opacity: 0;" />
+    <rect x="149.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 155.0px 146.0px; animation: popSquare 0.4s ease-out 248ms forwards; opacity: 0;" />
+    <rect x="149.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 155.0px 160.5px; animation: popSquare 0.4s ease-out 248ms forwards; opacity: 0;" />
+    <rect x="164.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 169.5px 73.5px; animation: popSquare 0.4s ease-out 262ms forwards; opacity: 0;" />
+    <rect x="164.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 169.5px 88.0px; animation: popSquare 0.4s ease-out 262ms forwards; opacity: 0;" />
+    <rect x="164.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 169.5px 102.5px; animation: popSquare 0.4s ease-out 262ms forwards; opacity: 0;" />
+    <rect x="164.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 169.5px 117.0px; animation: popSquare 0.4s ease-out 262ms forwards; opacity: 0;" />
+    <rect x="164.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 169.5px 131.5px; animation: popSquare 0.4s ease-out 262ms forwards; opacity: 0;" />
+    <rect x="164.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 169.5px 146.0px; animation: popSquare 0.4s ease-out 262ms forwards; opacity: 0;" />
+    <rect x="164.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 169.5px 160.5px; animation: popSquare 0.4s ease-out 262ms forwards; opacity: 0;" />
+    <rect x="178.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 184.0px 73.5px; animation: popSquare 0.4s ease-out 276ms forwards; opacity: 0;" />
+    <rect x="178.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 184.0px 88.0px; animation: popSquare 0.4s ease-out 276ms forwards; opacity: 0;" />
+    <rect x="178.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 184.0px 102.5px; animation: popSquare 0.4s ease-out 276ms forwards; opacity: 0;" />
+    <rect x="178.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 184.0px 117.0px; animation: popSquare 0.4s ease-out 276ms forwards; opacity: 0;" />
+    <rect x="178.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 184.0px 131.5px; animation: popSquare 0.4s ease-out 276ms forwards; opacity: 0;" />
+    <rect x="178.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 184.0px 146.0px; animation: popSquare 0.4s ease-out 276ms forwards; opacity: 0;" />
+    <rect x="178.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 184.0px 160.5px; animation: popSquare 0.4s ease-out 276ms forwards; opacity: 0;" />
+    <rect x="193.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 198.5px 73.5px; animation: popSquare 0.4s ease-out 290ms forwards; opacity: 0;" />
+    <rect x="193.0" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 198.5px 88.0px; animation: popSquare 0.4s ease-out 290ms forwards; opacity: 0;" />
+    <rect x="193.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 198.5px 102.5px; animation: popSquare 0.4s ease-out 290ms forwards; opacity: 0;" />
+    <rect x="193.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 198.5px 117.0px; animation: popSquare 0.4s ease-out 290ms forwards; opacity: 0;" />
+    <rect x="193.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 198.5px 131.5px; animation: popSquare 0.4s ease-out 290ms forwards; opacity: 0;" />
+    <rect x="193.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 198.5px 146.0px; animation: popSquare 0.4s ease-out 290ms forwards; opacity: 0;" />
+    <rect x="193.0" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 198.5px 160.5px; animation: popSquare 0.4s ease-out 290ms forwards; opacity: 0;" />
+    <rect x="207.5" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 213.0px 73.5px; animation: popSquare 0.4s ease-out 304ms forwards; opacity: 0;" />
+    <rect x="207.5" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 213.0px 88.0px; animation: popSquare 0.4s ease-out 304ms forwards; opacity: 0;" />
+    <rect x="207.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 213.0px 102.5px; animation: popSquare 0.4s ease-out 304ms forwards; opacity: 0;" />
+    <rect x="207.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 213.0px 117.0px; animation: popSquare 0.4s ease-out 304ms forwards; opacity: 0;" />
+    <rect x="207.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 213.0px 131.5px; animation: popSquare 0.4s ease-out 304ms forwards; opacity: 0;" />
+    <rect x="207.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 213.0px 146.0px; animation: popSquare 0.4s ease-out 304ms forwards; opacity: 0;" />
+    <rect x="207.5" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 213.0px 160.5px; animation: popSquare 0.4s ease-out 304ms forwards; opacity: 0;" />
+    <rect x="222.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 227.5px 73.5px; animation: popSquare 0.4s ease-out 318ms forwards; opacity: 0;" />
+    <rect x="222.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 227.5px 88.0px; animation: popSquare 0.4s ease-out 318ms forwards; opacity: 0;" />
+    <rect x="222.0" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 227.5px 102.5px; animation: popSquare 0.4s ease-out 318ms forwards; opacity: 0;" />
+    <rect x="222.0" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 227.5px 117.0px; animation: popSquare 0.4s ease-out 318ms forwards; opacity: 0;" />
+    <rect x="222.0" y="126.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 227.5px 131.5px; animation: popSquare 0.4s ease-out 318ms forwards; opacity: 0;" />
+    <rect x="222.0" y="140.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 227.5px 146.0px; animation: popSquare 0.4s ease-out 318ms forwards; opacity: 0;" />
+    <rect x="222.0" y="155.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 227.5px 160.5px; animation: popSquare 0.4s ease-out 318ms forwards; opacity: 0;" />
+    <rect x="236.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 242.0px 73.5px; animation: popSquare 0.4s ease-out 332ms forwards; opacity: 0;" />
+    <rect x="236.5" y="82.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 242.0px 88.0px; animation: popSquare 0.4s ease-out 332ms forwards; opacity: 0;" />
+    <rect x="236.5" y="97.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 242.0px 102.5px; animation: popSquare 0.4s ease-out 332ms forwards; opacity: 0;" />
+    <rect x="236.5" y="111.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 242.0px 117.0px; animation: popSquare 0.4s ease-out 332ms forwards; opacity: 0;" />
+    <rect x="236.5" y="126.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 242.0px 131.5px; animation: popSquare 0.4s ease-out 332ms forwards; opacity: 0;" />
+    <rect x="236.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 242.0px 146.0px; animation: popSquare 0.4s ease-out 332ms forwards; opacity: 0;" />
+    <rect x="236.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 242.0px 160.5px; animation: popSquare 0.4s ease-out 332ms forwards; opacity: 0;" />
+    <rect x="251.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 256.5px 73.5px; animation: popSquare 0.4s ease-out 346ms forwards; opacity: 0;" />
+    <rect x="251.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 256.5px 88.0px; animation: popSquare 0.4s ease-out 346ms forwards; opacity: 0;" />
+    <rect x="251.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 256.5px 102.5px; animation: popSquare 0.4s ease-out 346ms forwards; opacity: 0;" />
+    <rect x="251.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 256.5px 117.0px; animation: popSquare 0.4s ease-out 346ms forwards; opacity: 0;" />
+    <rect x="251.0" y="126.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 256.5px 131.5px; animation: popSquare 0.4s ease-out 346ms forwards; opacity: 0;" />
+    <rect x="251.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 256.5px 146.0px; animation: popSquare 0.4s ease-out 346ms forwards; opacity: 0;" />
+    <rect x="251.0" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 256.5px 160.5px; animation: popSquare 0.4s ease-out 346ms forwards; opacity: 0;" />
+    <rect x="265.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 271.0px 73.5px; animation: popSquare 0.4s ease-out 360ms forwards; opacity: 0;" />
+    <rect x="265.5" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 271.0px 88.0px; animation: popSquare 0.4s ease-out 360ms forwards; opacity: 0;" />
+    <rect x="265.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 271.0px 102.5px; animation: popSquare 0.4s ease-out 360ms forwards; opacity: 0;" />
+    <rect x="265.5" y="111.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 271.0px 117.0px; animation: popSquare 0.4s ease-out 360ms forwards; opacity: 0;" />
+    <rect x="265.5" y="126.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 271.0px 131.5px; animation: popSquare 0.4s ease-out 360ms forwards; opacity: 0;" />
+    <rect x="265.5" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 271.0px 146.0px; animation: popSquare 0.4s ease-out 360ms forwards; opacity: 0;" />
+    <rect x="265.5" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 271.0px 160.5px; animation: popSquare 0.4s ease-out 360ms forwards; opacity: 0;" />
+    <rect x="280.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 285.5px 73.5px; animation: popSquare 0.4s ease-out 374ms forwards; opacity: 0;" />
+    <rect x="280.0" y="82.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 285.5px 88.0px; animation: popSquare 0.4s ease-out 374ms forwards; opacity: 0;" />
+    <rect x="280.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 285.5px 102.5px; animation: popSquare 0.4s ease-out 374ms forwards; opacity: 0;" />
+    <rect x="280.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 285.5px 117.0px; animation: popSquare 0.4s ease-out 374ms forwards; opacity: 0;" />
+    <rect x="280.0" y="126.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 285.5px 131.5px; animation: popSquare 0.4s ease-out 374ms forwards; opacity: 0;" />
+    <rect x="280.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 285.5px 146.0px; animation: popSquare 0.4s ease-out 374ms forwards; opacity: 0;" />
+    <rect x="280.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 285.5px 160.5px; animation: popSquare 0.4s ease-out 374ms forwards; opacity: 0;" />
+    <rect x="294.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 300.0px 73.5px; animation: popSquare 0.4s ease-out 388ms forwards; opacity: 0;" />
+    <rect x="294.5" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 300.0px 88.0px; animation: popSquare 0.4s ease-out 388ms forwards; opacity: 0;" />
+    <rect x="294.5" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 300.0px 102.5px; animation: popSquare 0.4s ease-out 388ms forwards; opacity: 0;" />
+    <rect x="294.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 300.0px 117.0px; animation: popSquare 0.4s ease-out 388ms forwards; opacity: 0;" />
+    <rect x="294.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 300.0px 131.5px; animation: popSquare 0.4s ease-out 388ms forwards; opacity: 0;" />
+    <rect x="294.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 300.0px 146.0px; animation: popSquare 0.4s ease-out 388ms forwards; opacity: 0;" />
+    <rect x="294.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 300.0px 160.5px; animation: popSquare 0.4s ease-out 388ms forwards; opacity: 0;" />
+    <rect x="309.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 314.5px 73.5px; animation: popSquare 0.4s ease-out 402ms forwards; opacity: 0;" />
+    <rect x="309.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 314.5px 88.0px; animation: popSquare 0.4s ease-out 402ms forwards; opacity: 0;" />
+    <rect x="309.0" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 314.5px 102.5px; animation: popSquare 0.4s ease-out 402ms forwards; opacity: 0;" />
+    <rect x="309.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 314.5px 117.0px; animation: popSquare 0.4s ease-out 402ms forwards; opacity: 0;" />
+    <rect x="309.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 314.5px 131.5px; animation: popSquare 0.4s ease-out 402ms forwards; opacity: 0;" />
+    <rect x="309.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 314.5px 146.0px; animation: popSquare 0.4s ease-out 402ms forwards; opacity: 0;" />
+    <rect x="309.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 314.5px 160.5px; animation: popSquare 0.4s ease-out 402ms forwards; opacity: 0;" />
+    <rect x="323.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 329.0px 73.5px; animation: popSquare 0.4s ease-out 416ms forwards; opacity: 0;" />
+    <rect x="323.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 329.0px 88.0px; animation: popSquare 0.4s ease-out 416ms forwards; opacity: 0;" />
+    <rect x="323.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 329.0px 102.5px; animation: popSquare 0.4s ease-out 416ms forwards; opacity: 0;" />
+    <rect x="323.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 329.0px 117.0px; animation: popSquare 0.4s ease-out 416ms forwards; opacity: 0;" />
+    <rect x="323.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 329.0px 131.5px; animation: popSquare 0.4s ease-out 416ms forwards; opacity: 0;" />
+    <rect x="323.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 329.0px 146.0px; animation: popSquare 0.4s ease-out 416ms forwards; opacity: 0;" />
+    <rect x="323.5" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 329.0px 160.5px; animation: popSquare 0.4s ease-out 416ms forwards; opacity: 0;" />
+    <rect x="338.0" y="68.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 343.5px 73.5px; animation: popSquare 0.4s ease-out 430ms forwards; opacity: 0;" />
+    <rect x="338.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 343.5px 88.0px; animation: popSquare 0.4s ease-out 430ms forwards; opacity: 0;" />
+    <rect x="338.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 343.5px 102.5px; animation: popSquare 0.4s ease-out 430ms forwards; opacity: 0;" />
+    <rect x="338.0" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 343.5px 117.0px; animation: popSquare 0.4s ease-out 430ms forwards; opacity: 0;" />
+    <rect x="338.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 343.5px 131.5px; animation: popSquare 0.4s ease-out 430ms forwards; opacity: 0;" />
+    <rect x="338.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 343.5px 146.0px; animation: popSquare 0.4s ease-out 430ms forwards; opacity: 0;" />
+    <rect x="338.0" y="155.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 343.5px 160.5px; animation: popSquare 0.4s ease-out 430ms forwards; opacity: 0;" />
+    <rect x="352.5" y="68.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 358.0px 73.5px; animation: popSquare 0.4s ease-out 444ms forwards; opacity: 0;" />
+    <rect x="352.5" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 358.0px 88.0px; animation: popSquare 0.4s ease-out 444ms forwards; opacity: 0;" />
+    <rect x="352.5" y="97.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 358.0px 102.5px; animation: popSquare 0.4s ease-out 444ms forwards; opacity: 0;" />
+    <rect x="352.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 358.0px 117.0px; animation: popSquare 0.4s ease-out 444ms forwards; opacity: 0;" />
+    <rect x="352.5" y="126.0" width="11" height="11" rx="2.5" fill="#2563EB" style="transform-origin: 358.0px 131.5px; animation: popSquare 0.4s ease-out 444ms forwards; opacity: 0;" />
+    <rect x="352.5" y="140.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 358.0px 146.0px; animation: popSquare 0.4s ease-out 444ms forwards; opacity: 0;" />
+    <rect x="352.5" y="155.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 358.0px 160.5px; animation: popSquare 0.4s ease-out 444ms forwards; opacity: 0;" />
+    <rect x="367.0" y="68.0" width="11" height="11" rx="2.5" fill="#2563EB" style="transform-origin: 372.5px 73.5px; animation: popSquare 0.4s ease-out 458ms forwards; opacity: 0;" />
+    <rect x="367.0" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 372.5px 88.0px; animation: popSquare 0.4s ease-out 458ms forwards; opacity: 0;" />
+    <rect x="367.0" y="97.0" width="11" height="11" rx="2.5" fill="#2563EB" style="transform-origin: 372.5px 102.5px; animation: popSquare 0.4s ease-out 458ms forwards; opacity: 0;" />
+    <rect x="367.0" y="111.5" width="11" height="11" rx="2.5" fill="#1E3A8A" style="transform-origin: 372.5px 117.0px; animation: popSquare 0.4s ease-out 458ms forwards; opacity: 0;" />
+    <rect x="367.0" y="126.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 372.5px 131.5px; animation: popSquare 0.4s ease-out 458ms forwards; opacity: 0;" />
+    <rect x="367.0" y="140.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 372.5px 146.0px; animation: popSquare 0.4s ease-out 458ms forwards; opacity: 0;" />
+    <rect x="367.0" y="155.0" width="11" height="11" rx="2.5" fill="#2563EB" style="transform-origin: 372.5px 160.5px; animation: popSquare 0.4s ease-out 458ms forwards; opacity: 0;" />
+    <rect x="381.5" y="68.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 387.0px 73.5px; animation: popSquare 0.4s ease-out 472ms forwards; opacity: 0;" />
+    <rect x="381.5" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 387.0px 88.0px; animation: popSquare 0.4s ease-out 472ms forwards; opacity: 0;" />
+    <rect x="381.5" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 387.0px 102.5px; animation: popSquare 0.4s ease-out 472ms forwards; opacity: 0;" />
+    <rect x="381.5" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 387.0px 117.0px; animation: popSquare 0.4s ease-out 472ms forwards; opacity: 0;" />
+    <rect x="381.5" y="126.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 387.0px 131.5px; animation: popSquare 0.4s ease-out 472ms forwards; opacity: 0;" />
+    <rect x="381.5" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 387.0px 146.0px; animation: popSquare 0.4s ease-out 472ms forwards; opacity: 0;" />
+    <rect x="381.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 387.0px 160.5px; animation: popSquare 0.4s ease-out 472ms forwards; opacity: 0;" />
+    <rect x="396.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 401.5px 73.5px; animation: popSquare 0.4s ease-out 486ms forwards; opacity: 0;" />
+    <rect x="396.0" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 401.5px 88.0px; animation: popSquare 0.4s ease-out 486ms forwards; opacity: 0;" />
+    <rect x="396.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 401.5px 102.5px; animation: popSquare 0.4s ease-out 486ms forwards; opacity: 0;" />
+    <rect x="396.0" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 401.5px 117.0px; animation: popSquare 0.4s ease-out 486ms forwards; opacity: 0;" />
+    <rect x="396.0" y="126.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 401.5px 131.5px; animation: popSquare 0.4s ease-out 486ms forwards; opacity: 0;" />
+    <rect x="396.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 401.5px 146.0px; animation: popSquare 0.4s ease-out 486ms forwards; opacity: 0;" />
+    <rect x="396.0" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 401.5px 160.5px; animation: popSquare 0.4s ease-out 486ms forwards; opacity: 0;" />
+    <rect x="410.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 416.0px 73.5px; animation: popSquare 0.4s ease-out 500ms forwards; opacity: 0;" />
+    <rect x="410.5" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 416.0px 88.0px; animation: popSquare 0.4s ease-out 500ms forwards; opacity: 0;" />
+    <rect x="410.5" y="97.0" width="11" height="11" rx="2.5" fill="#2563EB" style="transform-origin: 416.0px 102.5px; animation: popSquare 0.4s ease-out 500ms forwards; opacity: 0;" />
+    <rect x="410.5" y="111.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 416.0px 117.0px; animation: popSquare 0.4s ease-out 500ms forwards; opacity: 0;" />
+    <rect x="410.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 416.0px 131.5px; animation: popSquare 0.4s ease-out 500ms forwards; opacity: 0;" />
+    <rect x="410.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 416.0px 146.0px; animation: popSquare 0.4s ease-out 500ms forwards; opacity: 0;" />
+    <rect x="410.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 416.0px 160.5px; animation: popSquare 0.4s ease-out 500ms forwards; opacity: 0;" />
+    <rect x="425.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 430.5px 73.5px; animation: popSquare 0.4s ease-out 514ms forwards; opacity: 0;" />
+    <rect x="425.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 430.5px 88.0px; animation: popSquare 0.4s ease-out 514ms forwards; opacity: 0;" />
+    <rect x="425.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 430.5px 102.5px; animation: popSquare 0.4s ease-out 514ms forwards; opacity: 0;" />
+    <rect x="425.0" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 430.5px 117.0px; animation: popSquare 0.4s ease-out 514ms forwards; opacity: 0;" />
+    <rect x="425.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 430.5px 131.5px; animation: popSquare 0.4s ease-out 514ms forwards; opacity: 0;" />
+    <rect x="425.0" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 430.5px 146.0px; animation: popSquare 0.4s ease-out 514ms forwards; opacity: 0;" />
+    <rect x="425.0" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 430.5px 160.5px; animation: popSquare 0.4s ease-out 514ms forwards; opacity: 0;" />
+    <rect x="439.5" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 445.0px 73.5px; animation: popSquare 0.4s ease-out 528ms forwards; opacity: 0;" />
+    <rect x="439.5" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 445.0px 88.0px; animation: popSquare 0.4s ease-out 528ms forwards; opacity: 0;" />
+    <rect x="439.5" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 445.0px 102.5px; animation: popSquare 0.4s ease-out 528ms forwards; opacity: 0;" />
+    <rect x="439.5" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 445.0px 117.0px; animation: popSquare 0.4s ease-out 528ms forwards; opacity: 0;" />
+    <rect x="439.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 445.0px 131.5px; animation: popSquare 0.4s ease-out 528ms forwards; opacity: 0;" />
+    <rect x="439.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 445.0px 146.0px; animation: popSquare 0.4s ease-out 528ms forwards; opacity: 0;" />
+    <rect x="439.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 445.0px 160.5px; animation: popSquare 0.4s ease-out 528ms forwards; opacity: 0;" />
+    <rect x="454.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 459.5px 73.5px; animation: popSquare 0.4s ease-out 542ms forwards; opacity: 0;" />
+    <rect x="454.0" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 459.5px 88.0px; animation: popSquare 0.4s ease-out 542ms forwards; opacity: 0;" />
+    <rect x="454.0" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 459.5px 102.5px; animation: popSquare 0.4s ease-out 542ms forwards; opacity: 0;" />
+    <rect x="454.0" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 459.5px 117.0px; animation: popSquare 0.4s ease-out 542ms forwards; opacity: 0;" />
+    <rect x="454.0" y="126.0" width="11" height="11" rx="2.5" fill="#2563EB" style="transform-origin: 459.5px 131.5px; animation: popSquare 0.4s ease-out 542ms forwards; opacity: 0;" />
+    <rect x="454.0" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 459.5px 146.0px; animation: popSquare 0.4s ease-out 542ms forwards; opacity: 0;" />
+    <rect x="454.0" y="155.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 459.5px 160.5px; animation: popSquare 0.4s ease-out 542ms forwards; opacity: 0;" />
+    <rect x="468.5" y="68.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 474.0px 73.5px; animation: popSquare 0.4s ease-out 556ms forwards; opacity: 0;" />
+    <rect x="468.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 474.0px 88.0px; animation: popSquare 0.4s ease-out 556ms forwards; opacity: 0;" />
+    <rect x="468.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 474.0px 102.5px; animation: popSquare 0.4s ease-out 556ms forwards; opacity: 0;" />
+    <rect x="468.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 474.0px 117.0px; animation: popSquare 0.4s ease-out 556ms forwards; opacity: 0;" />
+    <rect x="468.5" y="126.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 474.0px 131.5px; animation: popSquare 0.4s ease-out 556ms forwards; opacity: 0;" />
+    <rect x="468.5" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 474.0px 146.0px; animation: popSquare 0.4s ease-out 556ms forwards; opacity: 0;" />
+    <rect x="468.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 474.0px 160.5px; animation: popSquare 0.4s ease-out 556ms forwards; opacity: 0;" />
+    <rect x="483.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 488.5px 73.5px; animation: popSquare 0.4s ease-out 570ms forwards; opacity: 0;" />
+    <rect x="483.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 488.5px 88.0px; animation: popSquare 0.4s ease-out 570ms forwards; opacity: 0;" />
+    <rect x="483.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 488.5px 102.5px; animation: popSquare 0.4s ease-out 570ms forwards; opacity: 0;" />
+    <rect x="483.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 488.5px 117.0px; animation: popSquare 0.4s ease-out 570ms forwards; opacity: 0;" />
+    <rect x="483.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 488.5px 131.5px; animation: popSquare 0.4s ease-out 570ms forwards; opacity: 0;" />
+    <rect x="483.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 488.5px 146.0px; animation: popSquare 0.4s ease-out 570ms forwards; opacity: 0;" />
+    <rect x="483.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 488.5px 160.5px; animation: popSquare 0.4s ease-out 570ms forwards; opacity: 0;" />
+    <rect x="497.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 503.0px 73.5px; animation: popSquare 0.4s ease-out 584ms forwards; opacity: 0;" />
+    <rect x="497.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 503.0px 88.0px; animation: popSquare 0.4s ease-out 584ms forwards; opacity: 0;" />
+    <rect x="497.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 503.0px 102.5px; animation: popSquare 0.4s ease-out 584ms forwards; opacity: 0;" />
+    <rect x="497.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 503.0px 117.0px; animation: popSquare 0.4s ease-out 584ms forwards; opacity: 0;" />
+    <rect x="497.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 503.0px 131.5px; animation: popSquare 0.4s ease-out 584ms forwards; opacity: 0;" />
+    <rect x="497.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 503.0px 146.0px; animation: popSquare 0.4s ease-out 584ms forwards; opacity: 0;" />
+    <rect x="497.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 503.0px 160.5px; animation: popSquare 0.4s ease-out 584ms forwards; opacity: 0;" />
+    <rect x="512.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 517.5px 73.5px; animation: popSquare 0.4s ease-out 598ms forwards; opacity: 0;" />
+    <rect x="512.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 517.5px 88.0px; animation: popSquare 0.4s ease-out 598ms forwards; opacity: 0;" />
+    <rect x="512.0" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 517.5px 102.5px; animation: popSquare 0.4s ease-out 598ms forwards; opacity: 0;" />
+    <rect x="512.0" y="111.5" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 517.5px 117.0px; animation: popSquare 0.4s ease-out 598ms forwards; opacity: 0;" />
+    <rect x="512.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 517.5px 131.5px; animation: popSquare 0.4s ease-out 598ms forwards; opacity: 0;" />
+    <rect x="512.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 517.5px 146.0px; animation: popSquare 0.4s ease-out 598ms forwards; opacity: 0;" />
+    <rect x="512.0" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 517.5px 160.5px; animation: popSquare 0.4s ease-out 598ms forwards; opacity: 0;" />
+    <rect x="526.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 532.0px 73.5px; animation: popSquare 0.4s ease-out 612ms forwards; opacity: 0;" />
+    <rect x="526.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 532.0px 88.0px; animation: popSquare 0.4s ease-out 612ms forwards; opacity: 0;" />
+    <rect x="526.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 532.0px 102.5px; animation: popSquare 0.4s ease-out 612ms forwards; opacity: 0;" />
+    <rect x="526.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 532.0px 117.0px; animation: popSquare 0.4s ease-out 612ms forwards; opacity: 0;" />
+    <rect x="526.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 532.0px 131.5px; animation: popSquare 0.4s ease-out 612ms forwards; opacity: 0;" />
+    <rect x="526.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 532.0px 146.0px; animation: popSquare 0.4s ease-out 612ms forwards; opacity: 0;" />
+    <rect x="526.5" y="155.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 532.0px 160.5px; animation: popSquare 0.4s ease-out 612ms forwards; opacity: 0;" />
+    <rect x="541.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 546.5px 73.5px; animation: popSquare 0.4s ease-out 626ms forwards; opacity: 0;" />
+    <rect x="541.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 546.5px 88.0px; animation: popSquare 0.4s ease-out 626ms forwards; opacity: 0;" />
+    <rect x="541.0" y="97.0" width="11" height="11" rx="2.5" fill="#1E3A8A" style="transform-origin: 546.5px 102.5px; animation: popSquare 0.4s ease-out 626ms forwards; opacity: 0;" />
+    <rect x="541.0" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 546.5px 117.0px; animation: popSquare 0.4s ease-out 626ms forwards; opacity: 0;" />
+    <rect x="541.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 546.5px 131.5px; animation: popSquare 0.4s ease-out 626ms forwards; opacity: 0;" />
+    <rect x="541.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 546.5px 146.0px; animation: popSquare 0.4s ease-out 626ms forwards; opacity: 0;" />
+    <rect x="541.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 546.5px 160.5px; animation: popSquare 0.4s ease-out 626ms forwards; opacity: 0;" />
+    <rect x="555.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 561.0px 73.5px; animation: popSquare 0.4s ease-out 640ms forwards; opacity: 0;" />
+    <rect x="555.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 561.0px 88.0px; animation: popSquare 0.4s ease-out 640ms forwards; opacity: 0;" />
+    <rect x="555.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 561.0px 102.5px; animation: popSquare 0.4s ease-out 640ms forwards; opacity: 0;" />
+    <rect x="555.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 561.0px 117.0px; animation: popSquare 0.4s ease-out 640ms forwards; opacity: 0;" />
+    <rect x="555.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 561.0px 131.5px; animation: popSquare 0.4s ease-out 640ms forwards; opacity: 0;" />
+    <rect x="555.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 561.0px 146.0px; animation: popSquare 0.4s ease-out 640ms forwards; opacity: 0;" />
+    <rect x="555.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 561.0px 160.5px; animation: popSquare 0.4s ease-out 640ms forwards; opacity: 0;" />
+    <rect x="570.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 575.5px 73.5px; animation: popSquare 0.4s ease-out 654ms forwards; opacity: 0;" />
+    <rect x="570.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 575.5px 88.0px; animation: popSquare 0.4s ease-out 654ms forwards; opacity: 0;" />
+    <rect x="570.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 575.5px 102.5px; animation: popSquare 0.4s ease-out 654ms forwards; opacity: 0;" />
+    <rect x="570.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 575.5px 117.0px; animation: popSquare 0.4s ease-out 654ms forwards; opacity: 0;" />
+    <rect x="570.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 575.5px 131.5px; animation: popSquare 0.4s ease-out 654ms forwards; opacity: 0;" />
+    <rect x="570.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 575.5px 146.0px; animation: popSquare 0.4s ease-out 654ms forwards; opacity: 0;" />
+    <rect x="570.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 575.5px 160.5px; animation: popSquare 0.4s ease-out 654ms forwards; opacity: 0;" />
+    <rect x="584.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 590.0px 73.5px; animation: popSquare 0.4s ease-out 668ms forwards; opacity: 0;" />
+    <rect x="584.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 590.0px 88.0px; animation: popSquare 0.4s ease-out 668ms forwards; opacity: 0;" />
+    <rect x="584.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 590.0px 102.5px; animation: popSquare 0.4s ease-out 668ms forwards; opacity: 0;" />
+    <rect x="584.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 590.0px 117.0px; animation: popSquare 0.4s ease-out 668ms forwards; opacity: 0;" />
+    <rect x="584.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 590.0px 131.5px; animation: popSquare 0.4s ease-out 668ms forwards; opacity: 0;" />
+    <rect x="584.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 590.0px 146.0px; animation: popSquare 0.4s ease-out 668ms forwards; opacity: 0;" />
+    <rect x="584.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 590.0px 160.5px; animation: popSquare 0.4s ease-out 668ms forwards; opacity: 0;" />
+    <rect x="599.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 604.5px 73.5px; animation: popSquare 0.4s ease-out 682ms forwards; opacity: 0;" />
+    <rect x="599.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 604.5px 88.0px; animation: popSquare 0.4s ease-out 682ms forwards; opacity: 0;" />
+    <rect x="599.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 604.5px 102.5px; animation: popSquare 0.4s ease-out 682ms forwards; opacity: 0;" />
+    <rect x="599.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 604.5px 117.0px; animation: popSquare 0.4s ease-out 682ms forwards; opacity: 0;" />
+    <rect x="599.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 604.5px 131.5px; animation: popSquare 0.4s ease-out 682ms forwards; opacity: 0;" />
+    <rect x="599.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 604.5px 146.0px; animation: popSquare 0.4s ease-out 682ms forwards; opacity: 0;" />
+    <rect x="599.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 604.5px 160.5px; animation: popSquare 0.4s ease-out 682ms forwards; opacity: 0;" />
+    <rect x="613.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 619.0px 73.5px; animation: popSquare 0.4s ease-out 696ms forwards; opacity: 0;" />
+    <rect x="613.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 619.0px 88.0px; animation: popSquare 0.4s ease-out 696ms forwards; opacity: 0;" />
+    <rect x="613.5" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 619.0px 102.5px; animation: popSquare 0.4s ease-out 696ms forwards; opacity: 0;" />
+    <rect x="613.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 619.0px 117.0px; animation: popSquare 0.4s ease-out 696ms forwards; opacity: 0;" />
+    <rect x="613.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 619.0px 131.5px; animation: popSquare 0.4s ease-out 696ms forwards; opacity: 0;" />
+    <rect x="613.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 619.0px 146.0px; animation: popSquare 0.4s ease-out 696ms forwards; opacity: 0;" />
+    <rect x="613.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 619.0px 160.5px; animation: popSquare 0.4s ease-out 696ms forwards; opacity: 0;" />
+    <rect x="628.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 633.5px 73.5px; animation: popSquare 0.4s ease-out 710ms forwards; opacity: 0;" />
+    <rect x="628.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 633.5px 88.0px; animation: popSquare 0.4s ease-out 710ms forwards; opacity: 0;" />
+    <rect x="628.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 633.5px 102.5px; animation: popSquare 0.4s ease-out 710ms forwards; opacity: 0;" />
+    <rect x="628.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 633.5px 117.0px; animation: popSquare 0.4s ease-out 710ms forwards; opacity: 0;" />
+    <rect x="628.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 633.5px 131.5px; animation: popSquare 0.4s ease-out 710ms forwards; opacity: 0;" />
+    <rect x="628.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 633.5px 146.0px; animation: popSquare 0.4s ease-out 710ms forwards; opacity: 0;" />
+    <rect x="628.0" y="155.0" width="11" height="11" rx="2.5" fill="#2563EB" style="transform-origin: 633.5px 160.5px; animation: popSquare 0.4s ease-out 710ms forwards; opacity: 0;" />
+    <rect x="642.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 648.0px 73.5px; animation: popSquare 0.4s ease-out 724ms forwards; opacity: 0;" />
+    <rect x="642.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 648.0px 88.0px; animation: popSquare 0.4s ease-out 724ms forwards; opacity: 0;" />
+    <rect x="642.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 648.0px 102.5px; animation: popSquare 0.4s ease-out 724ms forwards; opacity: 0;" />
+    <rect x="642.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 648.0px 117.0px; animation: popSquare 0.4s ease-out 724ms forwards; opacity: 0;" />
+    <rect x="642.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 648.0px 131.5px; animation: popSquare 0.4s ease-out 724ms forwards; opacity: 0;" />
+    <rect x="642.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 648.0px 146.0px; animation: popSquare 0.4s ease-out 724ms forwards; opacity: 0;" />
+    <rect x="642.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 648.0px 160.5px; animation: popSquare 0.4s ease-out 724ms forwards; opacity: 0;" />
+    <rect x="657.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 662.5px 73.5px; animation: popSquare 0.4s ease-out 738ms forwards; opacity: 0;" />
+    <rect x="657.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 662.5px 88.0px; animation: popSquare 0.4s ease-out 738ms forwards; opacity: 0;" />
+    <rect x="657.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 662.5px 102.5px; animation: popSquare 0.4s ease-out 738ms forwards; opacity: 0;" />
+    <rect x="657.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 662.5px 117.0px; animation: popSquare 0.4s ease-out 738ms forwards; opacity: 0;" />
+    <rect x="657.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 662.5px 131.5px; animation: popSquare 0.4s ease-out 738ms forwards; opacity: 0;" />
+    <rect x="657.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 662.5px 146.0px; animation: popSquare 0.4s ease-out 738ms forwards; opacity: 0;" />
+    <rect x="657.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 662.5px 160.5px; animation: popSquare 0.4s ease-out 738ms forwards; opacity: 0;" />
+    <rect x="671.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 677.0px 73.5px; animation: popSquare 0.4s ease-out 752ms forwards; opacity: 0;" />
+    <rect x="671.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 677.0px 88.0px; animation: popSquare 0.4s ease-out 752ms forwards; opacity: 0;" />
+    <rect x="671.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 677.0px 102.5px; animation: popSquare 0.4s ease-out 752ms forwards; opacity: 0;" />
+    <rect x="671.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 677.0px 117.0px; animation: popSquare 0.4s ease-out 752ms forwards; opacity: 0;" />
+    <rect x="671.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 677.0px 131.5px; animation: popSquare 0.4s ease-out 752ms forwards; opacity: 0;" />
+    <rect x="671.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 677.0px 146.0px; animation: popSquare 0.4s ease-out 752ms forwards; opacity: 0;" />
+    <rect x="671.5" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 677.0px 160.5px; animation: popSquare 0.4s ease-out 752ms forwards; opacity: 0;" />
+    <rect x="686.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 691.5px 73.5px; animation: popSquare 0.4s ease-out 766ms forwards; opacity: 0;" />
+    <rect x="686.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 691.5px 88.0px; animation: popSquare 0.4s ease-out 766ms forwards; opacity: 0;" />
+    <rect x="686.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 691.5px 102.5px; animation: popSquare 0.4s ease-out 766ms forwards; opacity: 0;" />
+    <rect x="686.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 691.5px 117.0px; animation: popSquare 0.4s ease-out 766ms forwards; opacity: 0;" />
+    <rect x="686.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 691.5px 131.5px; animation: popSquare 0.4s ease-out 766ms forwards; opacity: 0;" />
+    <rect x="686.0" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 691.5px 146.0px; animation: popSquare 0.4s ease-out 766ms forwards; opacity: 0;" />
+    <rect x="686.0" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 691.5px 160.5px; animation: popSquare 0.4s ease-out 766ms forwards; opacity: 0;" />
+    <rect x="700.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 706.0px 73.5px; animation: popSquare 0.4s ease-out 780ms forwards; opacity: 0;" />
+    <rect x="700.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 706.0px 88.0px; animation: popSquare 0.4s ease-out 780ms forwards; opacity: 0;" />
+    <rect x="700.5" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 706.0px 102.5px; animation: popSquare 0.4s ease-out 780ms forwards; opacity: 0;" />
+    <rect x="700.5" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 706.0px 117.0px; animation: popSquare 0.4s ease-out 780ms forwards; opacity: 0;" />
+    <rect x="700.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 706.0px 131.5px; animation: popSquare 0.4s ease-out 780ms forwards; opacity: 0;" />
+    <rect x="700.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 706.0px 146.0px; animation: popSquare 0.4s ease-out 780ms forwards; opacity: 0;" />
+    <rect x="700.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 706.0px 160.5px; animation: popSquare 0.4s ease-out 780ms forwards; opacity: 0;" />
+    <rect x="715.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 720.5px 73.5px; animation: popSquare 0.4s ease-out 794ms forwards; opacity: 0;" />
+    <rect x="715.0" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 720.5px 88.0px; animation: popSquare 0.4s ease-out 794ms forwards; opacity: 0;" />
+    <rect x="715.0" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 720.5px 102.5px; animation: popSquare 0.4s ease-out 794ms forwards; opacity: 0;" />
+    <rect x="715.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 720.5px 117.0px; animation: popSquare 0.4s ease-out 794ms forwards; opacity: 0;" />
+    <rect x="715.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 720.5px 131.5px; animation: popSquare 0.4s ease-out 794ms forwards; opacity: 0;" />
+    <rect x="715.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 720.5px 146.0px; animation: popSquare 0.4s ease-out 794ms forwards; opacity: 0;" />
+    <rect x="715.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 720.5px 160.5px; animation: popSquare 0.4s ease-out 794ms forwards; opacity: 0;" />
+    <rect x="729.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 735.0px 73.5px; animation: popSquare 0.4s ease-out 808ms forwards; opacity: 0;" />
+    <rect x="729.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 735.0px 88.0px; animation: popSquare 0.4s ease-out 808ms forwards; opacity: 0;" />
+    <rect x="729.5" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 735.0px 102.5px; animation: popSquare 0.4s ease-out 808ms forwards; opacity: 0;" />
+    <rect x="729.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 735.0px 117.0px; animation: popSquare 0.4s ease-out 808ms forwards; opacity: 0;" />
+    <rect x="729.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 735.0px 131.5px; animation: popSquare 0.4s ease-out 808ms forwards; opacity: 0;" />
+    <rect x="729.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 735.0px 146.0px; animation: popSquare 0.4s ease-out 808ms forwards; opacity: 0;" />
+    <rect x="729.5" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 735.0px 160.5px; animation: popSquare 0.4s ease-out 808ms forwards; opacity: 0;" />
+    <rect x="744.0" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 749.5px 73.5px; animation: popSquare 0.4s ease-out 822ms forwards; opacity: 0;" />
+    <rect x="744.0" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 749.5px 88.0px; animation: popSquare 0.4s ease-out 822ms forwards; opacity: 0;" />
+    <rect x="744.0" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 749.5px 102.5px; animation: popSquare 0.4s ease-out 822ms forwards; opacity: 0;" />
+    <rect x="744.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 749.5px 117.0px; animation: popSquare 0.4s ease-out 822ms forwards; opacity: 0;" />
+    <rect x="744.0" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 749.5px 131.5px; animation: popSquare 0.4s ease-out 822ms forwards; opacity: 0;" />
+    <rect x="744.0" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 749.5px 146.0px; animation: popSquare 0.4s ease-out 822ms forwards; opacity: 0;" />
+    <rect x="744.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 749.5px 160.5px; animation: popSquare 0.4s ease-out 822ms forwards; opacity: 0;" />
+    <rect x="758.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 764.0px 73.5px; animation: popSquare 0.4s ease-out 836ms forwards; opacity: 0;" />
+    <rect x="758.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 764.0px 88.0px; animation: popSquare 0.4s ease-out 836ms forwards; opacity: 0;" />
+    <rect x="758.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 764.0px 102.5px; animation: popSquare 0.4s ease-out 836ms forwards; opacity: 0;" />
+    <rect x="758.5" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 764.0px 117.0px; animation: popSquare 0.4s ease-out 836ms forwards; opacity: 0;" />
+    <rect x="758.5" y="126.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 764.0px 131.5px; animation: popSquare 0.4s ease-out 836ms forwards; opacity: 0;" />
+    <rect x="758.5" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 764.0px 146.0px; animation: popSquare 0.4s ease-out 836ms forwards; opacity: 0;" />
+    <rect x="758.5" y="155.0" width="11" height="11" rx="2.5" fill="#1E3A8A" style="transform-origin: 764.0px 160.5px; animation: popSquare 0.4s ease-out 836ms forwards; opacity: 0;" />
+    <rect x="773.0" y="68.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 778.5px 73.5px; animation: popSquare 0.4s ease-out 850ms forwards; opacity: 0;" />
+    <rect x="773.0" y="82.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 778.5px 88.0px; animation: popSquare 0.4s ease-out 850ms forwards; opacity: 0;" />
+    <rect x="773.0" y="97.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 778.5px 102.5px; animation: popSquare 0.4s ease-out 850ms forwards; opacity: 0;" />
+    <rect x="773.0" y="111.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 778.5px 117.0px; animation: popSquare 0.4s ease-out 850ms forwards; opacity: 0;" />
+    <rect x="773.0" y="126.0" width="11" height="11" rx="2.5" fill="#60A5FA" style="transform-origin: 778.5px 131.5px; animation: popSquare 0.4s ease-out 850ms forwards; opacity: 0;" />
+    <rect x="773.0" y="140.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 778.5px 146.0px; animation: popSquare 0.4s ease-out 850ms forwards; opacity: 0;" />
+    <rect x="773.0" y="155.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 778.5px 160.5px; animation: popSquare 0.4s ease-out 850ms forwards; opacity: 0;" />
+    <rect x="787.5" y="68.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 793.0px 73.5px; animation: popSquare 0.4s ease-out 864ms forwards; opacity: 0;" />
+    <rect x="787.5" y="82.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 793.0px 88.0px; animation: popSquare 0.4s ease-out 864ms forwards; opacity: 0;" />
+    <rect x="787.5" y="97.0" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 793.0px 102.5px; animation: popSquare 0.4s ease-out 864ms forwards; opacity: 0;" />
+    <rect x="787.5" y="111.5" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 793.0px 117.0px; animation: popSquare 0.4s ease-out 864ms forwards; opacity: 0;" />
+    <rect x="787.5" y="126.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 793.0px 131.5px; animation: popSquare 0.4s ease-out 864ms forwards; opacity: 0;" />
+    <rect x="787.5" y="140.5" width="11" height="11" rx="2.5" fill="#EAE5DB" style="transform-origin: 793.0px 146.0px; animation: popSquare 0.4s ease-out 864ms forwards; opacity: 0;" />
+    <rect x="787.5" y="155.0" width="11" height="11" rx="2.5" fill="#BFDBFE" style="transform-origin: 793.0px 160.5px; animation: popSquare 0.4s ease-out 864ms forwards; opacity: 0;" />
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(680, 165)" font-family="'Geist Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Courier New', monospace" font-size="9" fill="#55504A">
+    <text x="0" y="9">Less</text>
+    <rect x="28" y="0" width="10" height="10" rx="2" fill="#EAE5DB" />
+    <rect x="42" y="0" width="10" height="10" rx="2" fill="#BFDBFE" />
+    <rect x="56" y="0" width="10" height="10" rx="2" fill="#60A5FA" />
+    <rect x="70" y="0" width="10" height="10" rx="2" fill="#2563EB" />
+    <rect x="84" y="0" width="10" height="10" rx="2" fill="#1E3A8A" />
+    <text x="100" y="9">More</text>
+  </g>
+</svg>

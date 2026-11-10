@@ -1,0 +1,44 @@
+name: Refresh Animated Profile Cards
+
+on:
+  schedule:
+    # Runs daily at 06:00 UTC (11:30 AM IST)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/update-cards.yml'
+
+jobs:
+  refresh-cards:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Render Animated SVG Cards
+        run: |
+          python scripts/render_readme_cards.py
+
+      - name: Commit and Push Updated Cards
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add cards/ data/
+          if git diff --staged --quiet; then
+            echo "No changes in cards or data to commit."
+          else
+            git commit -m "chore(cards): daily refresh animated SVG cards [skip ci]"
+            git push
+          fi
